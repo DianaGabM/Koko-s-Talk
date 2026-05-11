@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>KOKO'S - Mi Cuenta</title>
+    <link rel="stylesheet" href="css/perfil.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+</head>
+<body>
+
+<!-- BOTÓN REGRESAR -->
+<a href="lessonglobal.html" class="return-btn">
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+         stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m15 18-6-6 6-6"/>
+    </svg>
+    Regresar
+</a>
+
+<div class="account-hero">
+    <div class="hero-inner">
+        <div class="avatar-wrap">
+            <div class="avatar-circle" id="avatarDisplay" onclick="openAvatarPicker()">
+                <span id="avatarEmoji">🐨</span>
+            </div>
+            <div class="avatar-edit-btn" onclick="openAvatarPicker()">
+                <i class="fas fa-pencil-alt"></i>
+            </div>
+        </div>          
+        <div class="hero-info">
+            <h1 id="heroName">Mi Cuenta</h1>
+            <p id="heroEmail">usuario@kokostalk.com</p>
+            <div class="hero-badges">
+                <div class="hero-badge" id="levelBadge">
+                    <i class="fas fa-seedling"></i>
+                    <span>Principiante</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="page-body">
+
+    <div class="left-col">
+
+        <div class="card">
+            <div class="card-header">
+                <div class="icon-dot" style="background:var(--green);"><i class="fas fa-user"></i></div>
+                <h2>Mi Perfil</h2>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label>Nombre</label>
+                    <input class="form-control" id="inputName" type="text" placeholder="Tu nombre">
+                </div>
+                <div class="form-group">
+                    <label>Correo electrónico</label>
+                    <input class="form-control" id="inputEmail" type="email" placeholder="correo@ejemplo.com">
+                </div>
+                <div class="form-group">
+                    <label>País</label>
+                    <input class="form-control" id="inputCountry" type="text" placeholder="El Salvador">
+                </div>
+                <div class="form-group" style="margin-bottom:0;">
+                    <label>¿Por qué aprendes LESSA?</label>
+                    <input class="form-control" id="inputReason" type="text" placeholder="Me parece fascinante...">
+                </div>
+            </div>
+            <div style="padding: 0 22px 22px;">
+                <button class="save-btn" onclick="saveProfile()">
+                    <i class="fas fa-save"></i> Guardar cambios
+                </button>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div class="icon-dot" style="background:var(--yellow);"><i class="fas fa-chart-bar"></i></div>
+                <h2>Estadísticas</h2>
+            </div>
+            <div class="card-body">
+                <div class="mini-stats">
+                    <div class="mini-stat">
+                        <div class="mini-stat-val" id="statLessons" style="color:var(--green);">0</div>
+                        <div class="mini-stat-label">Lecciones</div>
+                    </div>
+                    <div class="mini-stat">
+                        <div class="mini-stat-val" id="statXP" style="color:var(--yellow);">0</div>
+                        <div class="mini-stat-label">XP Total</div>
+                    </div>
+                    <div class="mini-stat">
+                        <div class="mini-stat-val" id="statStreak" style="color:var(--orange);"></div>
+                        <div class="mini-stat-label">Racha</div>
+                    </div>
+                    <div class="mini-stat">
+                        <div class="mini-stat-val" id="statPct" style="color:var(--blue);">0%</div>
+                        <div class="mini-stat-label">Avance</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- LOGROS -->
+        <div class="card">
+            <div class="card-header">
+                <div class="icon-dot" style="background:var(--purple);"><i class="fas fa-trophy"></i></div>
+                <h2>Logros</h2>
+            </div>
+            <div class="card-body">
+                <div class="badges-grid" id="badgesGrid"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="right-col">
+
+        <!-- PROGRESO TOTAL -->
+        <div class="card">
+            <div class="card-header">
+                <div class="icon-dot" style="background:var(--blue);"><i class="fas fa-graduation-cap"></i></div>
+                <h2>Mi Progreso General</h2>
+            </div>
+            <div class="card-body">
+                <div class="progress-ring-section">
+                    <div class="ring-container">
+                        <svg class="ring-svg" width="130" height="130" viewBox="0 0 130 130">
+                            <circle class="ring-bg" cx="65" cy="65" r="55"/>
+                            <circle class="ring-fill" id="mainRingFill" cx="65" cy="65" r="55"
+                                stroke="url(#ringGrad)"
+                                stroke-dasharray="345.4"
+                                stroke-dashoffset="345.4"/>
+                            <defs>
+                                <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#58cc02"/>
+                                    <stop offset="100%" stop-color="#00d4aa"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                        <div class="ring-text">
+                            <span class="ring-percent" id="mainRingPct" style="color:var(--green);">0%</span>
+                            <span class="ring-sub">completado</span>
+                        </div>
+                    </div>
+                    <div class="ring-details">
+                        <h3 id="progressTitle">Estás comenzando</h3>
+                        <p id="progressDesc">Cada lección te acerca más a la comunicación plena en LESSA. ¡El primer paso es el más importante!</p>
+                        <div class="overall-motivation" id="motivationChip">
+                            <i class="fas fa-bolt"></i> <span id="motivText">¡Inicia tu primera lección!</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div class="icon-dot" style="background:var(--orange);"><i class="fas fa-layer-group"></i></div>
+                <h2>Progreso por Nivel</h2>
+            </div>
+            <div class="card-body">
+                <div class="level-bar-list">
+                    <div class="level-bar-item">
+                        <div class="level-bar-top">
+                            <div class="level-name-grp">
+                                <div class="level-dot" style="background:var(--blue);"></div>
+                                <span class="level-name">Nivel Básico</span>
+                            </div>
+                            <span class="level-count" id="basicCount">0/9</span>
+                        </div>
+                        <div class="bar-track">
+                            <div class="bar-fill" id="basicBarFill" style="background:var(--blue);"></div>
+                        </div>
+                    </div>
+                    <div class="level-bar-item">
+                        <div class="level-bar-top">
+                            <div class="level-name-grp">
+                                <div class="level-dot" style="background:var(--orange);"></div>
+                                <span class="level-name">Nivel Intermedio</span>
+                            </div>
+                            <span class="level-count" id="interCount">0/10</span>
+                        </div>
+                        <div class="bar-track">
+                            <div class="bar-fill" id="interBarFill" style="background:var(--orange);"></div>
+                        </div>
+                    </div>
+                    <div class="level-bar-item">
+                        <div class="level-bar-top">
+                            <div class="level-name-grp">
+                                <div class="level-dot" style="background:var(--purple);"></div>
+                                <span class="level-name">Nivel Avanzado</span>
+                            </div>
+                            <span class="level-count" id="advCount">0/9</span>
+                        </div>
+                        <div class="bar-track">
+                            <div class="bar-fill" id="advBarFill" style="background:var(--purple);"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DETALLES DE LECCIÓN -->
+        <div class="card">
+            <div class="card-header" style="border-bottom:none; padding-bottom:0;">
+                <div class="icon-dot" style="background:var(--teal);"><i class="fas fa-list-check"></i></div>
+                <h2>Detalle de Lecciones</h2>
+            </div>
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab('all', this)">Todas</button>
+                <button class="tab-btn" onclick="switchTab('done', this)">Completadas</button>
+                <button class="tab-btn" onclick="switchTab('pending', this)">Pendientes</button>
+            </div>
+            <div id="tab-all" class="tab-content active">
+                <div class="lessons-scroll" id="allLessonsList"></div>
+            </div>
+            <div id="tab-done" class="tab-content">
+                <div class="lessons-scroll" id="doneLessonsList"></div>
+            </div>
+            <div id="tab-pending" class="tab-content">
+                <div class="lessons-scroll" id="pendingLessonsList"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- PARTE DE CERTIFICACIÓN -->
+<div style="max-width:1100px; margin: 0 auto 60px; padding: 0 24px;">
+    <div class="card">
+        <div class="card-header">
+            <div class="icon-dot" style="background: linear-gradient(135deg,#ffc800,#ff9600);"><i class="fas fa-award"></i></div>
+            <h2>Mis Certificados</h2>
+            <span style="margin-left:auto; font-size:.8rem; font-weight:700; color:var(--text-light);" id="certCountLabel">0 ganados</span>
+        </div>
+        <div class="card-body">
+            <div class="certs-grid" id="certsGrid"></div>
+        </div>
+    </div>
+</div>
+
+<div class="cert-preview-overlay" id="certPreviewOverlay">
+    <div class="cert-preview-wrap">
+        <button class="cert-preview-close" onclick="closeCertPreview()">✕</button>
+        <div id="certDocContainer"></div>
+        <div class="cert-preview-btns">
+            <button class="cert-preview-btn primary" id="certDownloadBtn" onclick="downloadCert()">
+                <i class="fas fa-download"></i> Descargar PDF
+            </button>
+            <button class="cert-preview-btn secondary" onclick="closeCertPreview()">
+                <i class="fas fa-times"></i> Cerrar
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="avatar-selector" id="avatarSelector">
+    <div class="avatar-modal">
+        <h3>Elige tu avatar</h3>
+        <div class="avatar-options" id="avatarOptions"></div>
+        <button class="avatar-close" onclick="closeAvatarPicker()">Listo</button>
+    </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const lessonsCatalog = {
+    basic: [
+        { id: 'abc', icon: 'fas fa-font', color: '#1cb0f6', title: 'Letras A, B, C' },
+        { id: 'hola-adios-gracias', icon: 'fas fa-hand-peace', color: '#ff9600', title: 'Hola, Adios, Gracias' },
+        { id: 'nombre-edad-nacionalidad', icon: 'fas fa-id-card', color: '#ce82ff', title: 'Nombre, Edad, Nacionalidad' },
+        { id: 'numeros', icon: 'fas fa-calculator', color: '#ff4b4b', title: 'Numeros' },
+        { id: 'familia', icon: 'fas fa-users', color: '#00d4aa', title: 'Familia' },
+        { id: 'tiempo1', icon: 'fas fa-clock', color: '#ffc800', title: 'Tiempo basico' },
+        { id: 'colores', icon: 'fas fa-palette', color: '#ff86d0', title: 'Colores' },
+        { id: 'oraciones', icon: 'fas fa-pen-fancy', color: '#58cc02', title: 'Primeras oraciones' },
+        { id: 'eval-basic', icon: 'fas fa-graduation-cap', color: '#ff9600', title: 'Evaluacion Basico' }
+    ],
+    intermediate: [
+        { id: 'casa-sala-cocina', icon: 'fas fa-home', color: '#58cc02', title: 'Casa, Sala, Cocina' },
+        { id: 'ciudades', icon: 'fas fa-map-pin', color: '#1cb0f6', title: 'El Salvador, San Salvador, Santa Ana' },
+        { id: 'comida-tipica', icon: 'fas fa-utensils', color: '#ff9600', title: 'Pupusa, Tamal, Atol' },
+        { id: 'cuerpo', icon: 'fas fa-hand-peace', color: '#ff4b4b', title: 'Cuerpo Humano' },
+        { id: 'trabajo', icon: 'fas fa-briefcase', color: '#ce82ff', title: 'Trabajo y Profesiones' },
+        { id: 'transporte', icon: 'fas fa-bus', color: '#00d4aa', title: 'Transportes' },
+        { id: 'verbos', icon: 'fas fa-running', color: '#ffc800', title: 'Verbos de Accion' },
+        { id: 'tiempo2', icon: 'fas fa-calendar-alt', color: '#ff86d0', title: 'Tiempo Avanzado' },
+        { id: 'clasificadores1', icon: 'fas fa-hand-peace', color: '#58cc02', title: 'Clasificadores I' },
+        { id: 'eval-inter', icon: 'fas fa-certificate', color: '#ff9600', title: 'Evaluacion Intermedia' }
+    ],
+    advanced: [
+        { id: 'verbos-direccionales', icon: 'fas fa-arrow-right', color: '#1cb0f6', title: 'Verbos Direccionales' },
+        { id: 'cambio-rol', icon: 'fas fa-mask', color: '#ff9600', title: 'Cambio de Rol' },
+        { id: 'clasificadores-avanzados', icon: 'fas fa-hands', color: '#ff4b4b', title: 'Clasificadores Avanzados' },
+        { id: 'modismos-regionalismos', icon: 'fas fa-comment-dots', color: '#ce82ff', title: 'Modismos y Regionalismos' },
+        { id: 'leyes-derechos', icon: 'fas fa-scale-balanced', color: '#00d4aa', title: 'Leyes y Derechos' },
+        { id: 'temas-abstractos', icon: 'fas fa-brain', color: '#ffc800', title: 'Temas Abstractos' },
+        { id: 'poesia-narracion', icon: 'fas fa-book-open', color: '#ff86d0', title: 'Poesia y Narracion' },
+        { id: 'interpretacion-etica', icon: 'fas fa-handshake', color: '#58cc02', title: 'Interpretacion y Etica' },
+        { id: 'eval-avanzada', icon: 'fas fa-trophy', color: '#ff9600', title: 'Evaluacion Avanzada' }
+    ]
+};
+
+const allLessons = [
+    ...lessonsCatalog.basic.map(l => ({ ...l, level: 'Básico' })),
+    ...lessonsCatalog.intermediate.map(l => ({ ...l, level: 'Intermedio' })),
+    ...lessonsCatalog.advanced.map(l => ({ ...l, level: 'Avanzado' }))
+];
+
+const TOTAL = allLessons.length;
+const XP_PER_LESSON = 50;
+
+const ACHIEVEMENTS = [
+    { id: 'first',    label: 'Primera\nLección',   icon: 'fas fa-star',     color: '#ffc800', condition: c => c >= 1 },
+    { id: 'five',     label: '5 Lecciones',         icon: 'fas fa-fire',     color: '#ff4b4b', condition: c => c >= 5 },
+    { id: 'basic',    label: 'Básico\nCompleto',    icon: 'fas fa-seedling', color: '#58cc02', condition: (c,b)    => b === 9 },
+    { id: 'ten',      label: '10 Lecciones',         icon: 'fas fa-bolt',     color: '#ff9600', condition: c => c >= 10 },
+    { id: 'inter',    label: 'Intermedio\nCompleto', icon: 'fas fa-leaf',     color: '#1cb0f6', condition: (c,b,i)  => i === 10 },
+    { id: 'halfway',  label: 'A Mitad',             icon: 'fas fa-road',     color: '#ce82ff', condition: c => c >= Math.floor(TOTAL / 2) },
+    { id: 'advanced', label: 'Avanzado\nCompleto',  icon: 'fas fa-crown',    color: '#ffc800', condition: (c,b,i,a)=> a === 9 },
+    { id: 'master',   label: '¡Maestro\nLESSA!',   icon: 'fas fa-trophy',   color: '#ff4b4b', condition: c => c === TOTAL }
+];
+
+const AVATARS = ['🐨','🦊','🐸','🐼','🦁','🐯','🦄','🐙','🦋','🐧','🦜','🐬'];
+
+// ESTADO
+let profile = {
+    name: '', email: '', country: 'El Salvador',
+    reason: '', avatar: '🐨', streak: 0
+};
+
+function loadState() {
+    const saved = localStorage.getItem('kokoGame');
+    let game = { completedLessons: [] };
+    if (saved) { try { game = JSON.parse(saved); } catch(e) {} }
+
+    const savedProfile = localStorage.getItem('kokoProfile');
+    if (savedProfile) { try { profile = { ...profile, ...JSON.parse(savedProfile) }; } catch(e) {} }
+
+    return game;
+}
+
+function saveProfile() {
+    profile.name    = document.getElementById('inputName').value.trim();
+    profile.email   = document.getElementById('inputEmail').value.trim();
+    profile.country = document.getElementById('inputCountry').value.trim();
+    profile.reason  = document.getElementById('inputReason').value.trim();
+    localStorage.setItem('kokoProfile', JSON.stringify(profile));
+
+    // Actualizar racha
+    const today = new Date().toDateString();
+    const lastSave = localStorage.getItem('kokoLastSave');
+    if (lastSave !== today) {
+        const yesterday = new Date(Date.now() - 86400000).toDateString();
+        profile.streak = (lastSave === yesterday) ? (profile.streak || 0) + 1 : 1;
+        localStorage.setItem('kokoLastSave', today);
+        localStorage.setItem('kokoProfile', JSON.stringify(profile));
+    }
+
+    showToast('✅ Perfil guardado');
+    renderHero(loadState().completedLessons || []);
+}
+
+// render
+function renderHero(completed) {
+    const c = completed.length;
+
+    document.getElementById('heroName').textContent  = profile.name  || 'Mi Cuenta';
+    document.getElementById('heroEmail').textContent = profile.email || 'usuario@kokostalk.com';
+    document.getElementById('avatarEmoji').textContent = profile.avatar;
+
+    //nivel 
+    const levelEl = document.getElementById('levelBadge');
+    if (c === TOTAL) {
+    } else if (c >= 20) {
+        levelEl.querySelector('span').textContent = 'Avanzado';
+        levelEl.querySelector('i').className = 'fas fa-fire';
+    } else if (c >= 10) {
+        levelEl.querySelector('span').textContent = 'Intermedio';
+        levelEl.querySelector('i').className = 'fas fa-leaf';
+    } else {
+        levelEl.querySelector('span').textContent = 'Principiante';
+        levelEl.querySelector('i').className = 'fas fa-seedling';
+    }
+}
+
+function renderStats(completed) {
+    const c   = completed.length;
+    const pct = Math.round((c / TOTAL) * 100);
+    document.getElementById('statLessons').textContent = c;
+    document.getElementById('statXP').textContent      = c * XP_PER_LESSON;
+    document.getElementById('statStreak').textContent  = `${profile.streak || 0}`;
+    document.getElementById('statPct').textContent     = `${pct}%`;
+}
+
+function renderRing(completed) {
+    const c   = completed.length;
+    const pct = Math.round((c / TOTAL) * 100);
+    const circumference = 2 * Math.PI * 55;
+    const offset = circumference * (1 - pct / 100);
+
+    document.getElementById('mainRingPct').textContent = `${pct}%`;
+    setTimeout(() => {
+        document.getElementById('mainRingFill').style.strokeDashoffset = offset;
+    }, 200);
+
+    const title = document.getElementById('progressTitle');
+    const desc  = document.getElementById('progressDesc');
+    const motiv = document.getElementById('motivText');
+    if (pct === 100)     { title.textContent = '¡Felicitaciones, Maestro!'; desc.textContent = '¡Has completado todas las lecciones de LESSA!'; motiv.textContent = '¡Certificado completo!'; }
+    else if (pct >= 75)  { title.textContent = '¡Casi en la cima!'; desc.textContent = 'Tu dominio de LESSA es impresionante. Pocas lecciones te separan de la maestría total.'; motiv.textContent = '¡Sigue, ya casi!'; }
+    else if (pct >= 50)  { title.textContent = 'Vas muy bien'; desc.textContent = 'Llevas más de la mitad del camino recorrido. Tu esfuerzo se nota en cada seña aprendida.'; motiv.textContent = '¡A seguir avanzando!'; }
+    else if (pct >= 25)  { title.textContent = 'Buen arranque'; desc.textContent = 'Ya has construido una base sólida. Cada lección nueva abre más puertas de comunicación.'; motiv.textContent = '¡Sigue practicando!'; }
+    else if (pct > 0)    { title.textContent = 'Estás comenzando'; desc.textContent = 'Cada gran viaje comienza con un primer paso. ¡El tuyo ya está dado!'; motiv.textContent = '¡Sigue así!'; }
+    else                 { title.textContent = 'Todo por descubrir'; desc.textContent = 'Tu viaje por LESSA está por comenzar. Ve a Lessons y completa tu primera lección.'; motiv.textContent = '¡Empieza ahora!'; }
+}
+
+function renderBars(completed) {
+    const bc = completed.filter(id => lessonsCatalog.basic.some(l => l.id === id)).length;
+    const ic = completed.filter(id => lessonsCatalog.intermediate.some(l => l.id === id)).length;
+    const ac = completed.filter(id => lessonsCatalog.advanced.some(l => l.id === id)).length;
+
+    document.getElementById('basicCount').textContent = `${bc}/9`;
+    document.getElementById('interCount').textContent = `${ic}/10`;
+    document.getElementById('advCount').textContent   = `${ac}/9`;
+
+    setTimeout(() => {
+        document.getElementById('basicBarFill').style.width = `${Math.round(bc/9*100)}%`;
+        document.getElementById('interBarFill').style.width = `${Math.round(ic/10*100)}%`;
+        document.getElementById('advBarFill').style.width   = `${Math.round(ac/9*100)}%`;
+    }, 300);
+}
+
+function renderLessonLists(completed) {
+    const makeRow = (lesson, idx) => {
+        const done   = completed.includes(lesson.id);
+        const isNext = !done && (idx === 0 || completed.includes(allLessons[idx - 1]?.id));
+        let statusHtml;
+        if (done)          statusHtml = `<span class="lesson-row-status status-done"><i class="fas fa-check-circle"></i> Completada</span>`;
+        else if (isNext)   statusHtml = `<span class="lesson-row-status status-current"><i class="fas fa-play-circle"></i> Siguiente</span>`;
+        else               statusHtml = `<span class="lesson-row-status status-locked"><i class="fas fa-lock"></i></span>`;
+
+        return `
+            <div class="lesson-row ${done ? 'done' : ''} ${isNext && !done ? 'current-active' : ''}">
+                <div class="lesson-row-icon" style="background:${lesson.color}20; color:${lesson.color};">
+                    <i class="${lesson.icon}"></i>
+                </div>
+                <div class="lesson-row-info">
+                    <div class="lesson-row-title">${lesson.title}</div>
+                    <div class="lesson-row-level">Nivel ${lesson.level}</div>
+                </div>
+                ${statusHtml}
+            </div>`;
+    };
+
+    const allHtml  = allLessons.map((l, i) => makeRow(l, i)).join('');
+    const doneHtml = allLessons.filter(l => completed.includes(l.id)).map((l) => makeRow(l, allLessons.indexOf(l))).join('')
+                  || '<p style="color:var(--text-light);font-weight:700;text-align:center;padding:24px;">Aún no has completado lecciones. ¡Empieza ahora!</p>';
+    const pendHtml = allLessons.filter(l => !completed.includes(l.id)).map((l) => makeRow(l, allLessons.indexOf(l))).join('');
+
+    document.getElementById('allLessonsList').innerHTML    = allHtml;
+    document.getElementById('doneLessonsList').innerHTML   = doneHtml;
+    document.getElementById('pendingLessonsList').innerHTML = pendHtml;
+}
+
+function renderBadges(completed) {
+    const bc = completed.filter(id => lessonsCatalog.basic.some(l => l.id === id)).length;
+    const ic = completed.filter(id => lessonsCatalog.intermediate.some(l => l.id === id)).length;
+    const ac = completed.filter(id => lessonsCatalog.advanced.some(l => l.id === id)).length;
+    const c  = completed.length;
+
+    document.getElementById('badgesGrid').innerHTML = ACHIEVEMENTS.map(a => {
+        const unlocked = a.condition(c, bc, ic, ac);
+        return `
+            <div class="badge-item" title="${unlocked ? '¡Desbloqueado!' : 'Aún no desbloqueado'}">
+                <div class="badge-icon ${unlocked ? '' : 'locked'}" style="${unlocked ? `background:${a.color}22; color:${a.color};` : ''}">
+                    <i class="${a.icon}" style="${unlocked ? `color:${a.color};` : ''}"></i>
+                </div>
+                <span class="badge-label">${a.label}</span>
+            </div>`;
+    }).join('');
+}
+
+// AVATAR 
+function renderAvatarPicker() {
+    document.getElementById('avatarOptions').innerHTML = AVATARS.map(e => `
+        <div class="avatar-opt ${e === profile.avatar ? 'selected' : ''}" onclick="selectAvatar('${e}', this)">${e}</div>
+    `).join('');
+}
+function openAvatarPicker()  { renderAvatarPicker(); document.getElementById('avatarSelector').classList.add('open'); }
+function closeAvatarPicker() {
+    document.getElementById('avatarSelector').classList.remove('open');
+    localStorage.setItem('kokoProfile', JSON.stringify(profile));
+    document.getElementById('avatarEmoji').textContent = profile.avatar;
+    showToast('Avatar actualizado');
+}
+function selectAvatar(emoji, el) {
+    profile.avatar = emoji;
+    document.querySelectorAll('.avatar-opt').forEach(e => e.classList.remove('selected'));
+    el.classList.add('selected');
+}
+
+// tabs
+function switchTab(id, btn) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    btn.classList.add('active');
+}
+
+function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+function populateForm() {
+    document.getElementById('inputName').value    = profile.name    || '';
+    document.getElementById('inputEmail').value   = profile.email   || '';
+    document.getElementById('inputCountry').value = profile.country || 'El Salvador';
+    document.getElementById('inputReason').value  = profile.reason  || '';
+}
+
+// Certificados
+const CERTS = [
+    {
+        id: 'cert-basic', title: 'Certificado Nivel Básico', subtitle: 'Primeros Pasos en LESSA',
+        desc: 'Ha completado satisfactoriamente todas las lecciones del Nivel Básico',
+        icon: '🌱', color: '#1cb0f6', gradient: 'linear-gradient(135deg,#1cb0f6,#00d4aa)',
+        levelLabel: 'Nivel Básico', levelColor: '#1cb0f6',
+        requiredIds: lessonsCatalog.basic.map(l => l.id)
+    },
+    {
+        id: 'cert-inter', title: 'Certificado Nivel Intermedio', subtitle: 'Comunicación y Entorno',
+        desc: 'Ha completado satisfactoriamente todas las lecciones del Nivel Intermedio',
+        icon: '🍃', color: '#ff9600', gradient: 'linear-gradient(135deg,#ff9600,#ffc800)',
+        levelLabel: 'Nivel Intermedio', levelColor: '#ff9600',
+        requiredIds: lessonsCatalog.intermediate.map(l => l.id)
+    },
+    {
+        id: 'cert-adv', title: 'Certificado Nivel Avanzado', subtitle: 'Fluidez y Narración',
+        desc: 'Ha completado satisfactoriamente todas las lecciones del Nivel Avanzado',
+        icon: '🏆', color: '#ce82ff', gradient: 'linear-gradient(135deg,#ce82ff,#ff86d0)',
+        levelLabel: 'Nivel Avanzado', levelColor: '#ce82ff',
+        requiredIds: lessonsCatalog.advanced.map(l => l.id)
+    },
+
+];
+
+let currentCert = null;
+
+function getCertDates() {
+    const saved = localStorage.getItem('kokoCertDates');
+    return saved ? JSON.parse(saved) : {};
+}
+function saveCertDate(certId) {
+    const dates = getCertDates();
+    if (!dates[certId]) {
+        dates[certId] = new Date().toLocaleDateString('es-SV', { year:'numeric', month:'long', day:'numeric' });
+        localStorage.setItem('kokoCertDates', JSON.stringify(dates));
+    }
+    return dates[certId];
+}
+
+function renderCerts(completed) {
+    const dates = getCertDates();
+    const grid  = document.getElementById('certsGrid');
+    let earned  = 0;
+
+    grid.innerHTML = CERTS.map(cert => {
+        const done     = cert.requiredIds.every(id => completed.includes(id));
+        const progress = cert.requiredIds.filter(id => completed.includes(id)).length;
+        const total    = cert.requiredIds.length;
+        const pct      = Math.round(progress / total * 100);
+
+        if (done) { earned++; saveCertDate(cert.id); }
+        const dateStr = done ? (dates[cert.id] || new Date().toLocaleDateString('es-SV', { year:'numeric', month:'long', day:'numeric' })) : '';
+
+        return `
+        <div class="cert-card ${done ? 'earned' : 'locked-cert'}" style="${done ? `border-color:${cert.color}40;` : ''}">
+            <div class="cert-banner" style="background:${cert.gradient};">
+                <div class="cert-banner-icon">${cert.icon}</div>
+                ${!done ? '<div class="cert-lock-overlay"><i class="fas fa-lock"></i></div>' : ''}
+            </div>
+            <div class="cert-body">
+                <div class="cert-title">${cert.title}</div>
+                <div class="cert-subtitle">${cert.subtitle}</div>
+                <div class="cert-progress-bar">
+                    <div class="cert-progress-fill" style="background:${cert.gradient}; width:${pct}%;"></div>
+                </div>
+                <div class="cert-progress-label">
+                    <span>${progress}/${total} lecciones</span>
+                    <span>${pct}%</span>
+                </div>
+                <div class="cert-footer">
+                    <span class="cert-date">${done ? '📅 ' + dateStr : 'Aún no desbloqueado'}</span>
+                    ${done
+                        ? `<button class="cert-action-btn download" style="background:${cert.gradient};" onclick="openCertPreview('${cert.id}')">
+                               <i class="fas fa-eye"></i> Ver
+                           </button>`
+                        : `<button class="cert-action-btn locked-btn" disabled>🔒 Bloqueado</button>`
+                    }
+                </div>
+            </div>
+        </div>`;
+    }).join('');
+
+    document.getElementById('certCountLabel').textContent = `${earned} ganado${earned !== 1 ? 's' : ''}`;
+}
+
+function buildCertDoc(cert, userName) {
+    const dates   = getCertDates();
+    const dateStr = dates[cert.id] || new Date().toLocaleDateString('es-SV', { year:'numeric', month:'long', day:'numeric' });
+    const name    = userName || 'Estudiante';
+    return `
+    <div class="certificate-doc" style="border-color:${cert.color}; color:${cert.color};">
+        <div style="position:absolute;inset:0;background:${cert.gradient};opacity:.04;pointer-events:none;border-radius:16px;"></div>
+        <div class="cert-doc-logo">${cert.icon}</div>
+        <div class="cert-doc-brand" style="color:${cert.color};">Koko's Talk</div>
+        <hr class="cert-doc-divider" style="background:${cert.color};">
+        <div class="cert-doc-headline" style="color:${cert.color};">Certifica que</div>
+        <div class="cert-doc-name" style="color:#3c3c3c;">${name}</div>
+        <div class="cert-doc-body" style="color:#555;">${cert.desc} del programa de Lengua de Señas Salvadoreña (LESSA).</div>
+        <div class="cert-doc-level" style="background:${cert.gradient};">${cert.levelLabel}</div>
+        <hr class="cert-doc-divider" style="background:${cert.color};">
+        <div class="cert-doc-footer">
+            <div class="cert-doc-sig">
+                <div class="cert-doc-sig-line" style="background:${cert.color};"></div>
+                <div class="cert-doc-sig-label" style="color:${cert.color};">Koko's Talk — Dirección Académica</div>
+            </div>
+            <div class="cert-doc-date" style="color:${cert.color};">Fecha de obtención<br><strong>${dateStr}</strong></div>
+        </div>
+        <div class="cert-doc-seal" style="color:${cert.color};">${cert.icon}</div>
+    </div>`;
+}
+
+function openCertPreview(certId) {
+    currentCert = CERTS.find(c => c.id === certId);
+    if (!currentCert) return;
+    const name = document.getElementById('inputName').value.trim() || profile.name || 'Estudiante';
+    document.getElementById('certDocContainer').innerHTML = buildCertDoc(currentCert, name);
+    document.getElementById('certDownloadBtn').style.background = currentCert.gradient;
+    document.getElementById('certPreviewOverlay').classList.add('open');
+}
+function closeCertPreview() {
+    document.getElementById('certPreviewOverlay').classList.remove('open');
+    currentCert = null;
+}
+function downloadCert() {
+    if (!currentCert) return;
+    showToast('📄 Abriendo certificado para imprimir...');
+}
+
+function init() {
+    const game      = loadState();
+    const completed = game.completedLessons || [];
+
+    populateForm();       // primero llena el formulario con datos guardados
+    renderHero(completed);
+    renderStats(completed);
+    renderRing(completed);
+    renderBars(completed);
+    renderLessonLists(completed);
+    renderBadges(completed);
+    renderCerts(completed);
+}
+
+init();
+</script>
+</body>
+</html>

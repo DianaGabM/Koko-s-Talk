@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>KOKO'S - Learn LESSA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" href="img/logo.png" type="image/png">
+    <link rel="stylesheet" href="css/lessonglobal.css">
+</head>
+<body>
+
+<div class="navbar-container">
+  <nav class="navbar">
+    <div class="brand">
+      <img src="img/logo.png" alt="">
+      <div class="brand-text">Koko's Talk</div>
+    </div>
+    <ul class="nav-links">
+        <li><a href="index.html" aria-current="page">Home</a></li>
+      <li><a href="lessonglobal.html" class="active">Lessons</a></li>
+      <li><a href="cursosglobal.html">Courses</a></li>
+      <li><a href="diccinario.html">Dictionary</a></li>
+      <li><a href="about.html">About Us</a></li>
+    </ul>
+    <div class="email-area" id="emailCopyTrigger">
+      <span class="email-icon"><img src="img/usuario.png" alt=""></span>
+    </div>
+  </nav>
+</div>
+
+<section class="hero">
+    <div class="hero-title-container">
+        <div class="back-arrow" id="backArrowBtn" onclick="location.href='index.html'">
+            <i class="fas fa-arrow-left"></i>
+        </div>
+        <h1>Learn on your wave at your own space</h1>
+    </div>
+    <p>Start your journey with Koko today!</p>
+</section>
+
+<div class="main-container">
+    <div class="mascot-card">
+        <div class="mascot-avatar">
+            <img src="img/invitacion/miniicon.png" alt="">
+        </div>
+        <div class="mascot-bubble" id="mascot-message">Koko here. Move along the path and learn LESSA</div>
+    </div>
+
+    <!-- Basic Level -->
+    <div class="level-section">
+        <div class="section-header">
+            <div class="section-badge badge-basic">Basic Level</div>
+            <h2 class="section-title">First steps</h2>
+        </div>
+        <div class="path-container" id="basic-path">
+            <svg class="path-svg" viewBox="0 0 600 820" preserveAspectRatio="none">
+                <path class="path-line-svg path-bg" d=""/>
+                <path class="path-line-svg path-fill" id="basic-path-fill" d=""/>
+            </svg>
+        </div>
+        <div class="diploma-btn-container">
+            <button class="diploma-btn" onclick="checkAndGetDiploma('basico')">
+                <i class="fas fa-graduation-cap"></i> Get Basic Level diploma
+            </button>
+        </div>
+    </div>
+
+    <!-- Intermediate Level -->
+    <div class="level-section">
+        <div class="section-header">
+            <div class="section-badge badge-intermediate">Intermediate Level</div>
+            <h2 class="section-title">Communication and environment</h2>
+        </div>
+        <div class="path-container" id="intermediate-path">
+            <svg class="path-svg" viewBox="0 0 600 820" preserveAspectRatio="none">
+                <path class="path-line-svg path-bg" d=""/>
+                <path class="path-line-svg path-fill" id="inter-path-fill" d=""/>
+            </svg>
+        </div>
+        <div class="diploma-btn-container">
+            <button class="diploma-btn" onclick="checkAndGetDiploma('intermedio')">
+                <i class="fas fa-graduation-cap"></i> Get Intermediate Level diploma
+            </button>
+        </div>
+    </div>
+
+    <!-- Advanced Level -->
+    <div class="level-section">
+        <div class="section-header">
+            <div class="section-badge badge-advanced">Advanced Level</div>
+            <h2 class="section-title">Fluency and storytelling</h2>
+        </div>
+        <div class="path-container" id="advanced-path">
+            <svg class="path-svg" viewBox="0 0 600 820" preserveAspectRatio="none">
+                <path class="path-line-svg path-bg" d=""/>
+                <path class="path-line-svg path-fill" id="adv-path-fill" d=""/>
+            </svg>
+        </div>
+        <div class="diploma-btn-container">
+            <button class="diploma-btn" onclick="checkAndGetDiploma('avanzado')">
+                <i class="fas fa-graduation-cap"></i> Get Advanced Level diploma
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="stats-floating" id="progress-button">
+    <span>View my progress</span>
+    <i class="fas fa-arrow-right"></i>
+</div>
+
+<div class="celebration" id="celebration"></div>
+<div class="completion-popup" id="completion-popup">Lesson Completed</div>
+
+<div id="lessonModal" class="lesson-modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 id="modalTitle">Lesson</h2>
+            <button class="close-modal" id="closeModalBtn">&times;</button>
+        </div>
+        
+        <div class="videos-grid" id="videosGrid"></div>
+
+        <div class="modal-description" id="modalDescription">
+            <h3>Sign description</h3>
+            <p id="modalDescText"></p>
+        </div>
+
+        <div class="tips-section" id="tipsSection">
+            <h3>Tips for the sign</h3>
+            <ul id="tipsList"></ul>
+        </div>
+
+        <div class="game-area">
+            <h3>Mini game: What did you learn?</h3>
+            <div id="questionsContainer"></div>
+            <button id="completeLessonBtn" class="complete-lesson-btn" disabled>Complete Lesson</button>
+        </div>
+    </div>
+</div>
+
+<!-- Progress Modal -->
+<div id="progressModal" class="progress-modal">
+    <div class="progress-modal-content">
+        <div class="progress-modal-header">
+            <h2>My Progress</h2>
+            <button class="close-progress-modal" id="closeProgressModal">&times;</button>
+        </div>
+        
+        <div class="progress-stats">
+            <div class="progress-circle-container">
+                <div class="progress-circle" id="progressCircle">
+                    <div class="progress-circle-inner">
+                        <span class="progress-percent" id="progressPercent">0%</span>
+                        <span class="progress-label">Completed</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="progress-details">
+                <div class="progress-item">
+                    <div class="progress-level-info">
+                        <span class="level-dot basic-dot"></span>
+                        <span>Basic Level</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar basic-bar" id="basicProgressBar"></div>
+                    </div>
+                    <span class="progress-text" id="basicProgressText">0/10</span>
+                </div>
+                
+                <div class="progress-item">
+                    <div class="progress-level-info">
+                        <span class="level-dot intermediate-dot"></span>
+                        <span>Intermediate Level</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar intermediate-bar" id="intermediateProgressBar"></div>
+                    </div>
+                    <span class="progress-text" id="intermediateProgressText">0/10</span>
+                </div>
+                
+                <div class="progress-item">
+                    <div class="progress-level-info">
+                        <span class="level-dot advanced-dot"></span>
+                        <span>Advanced Level</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar advanced-bar" id="advancedProgressBar"></div>
+                    </div>
+                    <span class="progress-text" id="advancedProgressText">0/9</span>
+                </div>
+            </div>
+            
+            <div class="progress-motivation" id="progressMotivation">
+                Keep learning
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Diploma Warning Modal -->
+<div id="diplomaWarningModal" class="warning-modal">
+    <div class="warning-modal-content">
+        <div class="warning-modal-header">
+            <i class="fas fa-exclamation-triangle"></i>
+            <h3>You cannot get the diploma</h3>
+        </div>
+        <div class="warning-modal-body">
+            <p>To get the diploma for this level, you must first complete all lessons in the level:</p>
+            <div id="missingLevelsInfo"></div>
+        </div>
+        <div class="warning-modal-footer">
+            <button onclick="closeWarningModal()">Got it, I'll keep learning</button>
+        </div>
+    </div>
+</div>
+
+<footer class="footer">
+    <div class="wave-top">
+        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+        </svg>
+    </div>
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h4>Koko's Talk</h4>
+                <p>Transforming lives through inclusive communication. Learn LESSA dynamically and professionally.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">LESSA Guide</a></li>
+                    <li><a href="#">Community</a></li>
+                    <li><a href="#">Help Center</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Contact</h4>
+                <ul>
+                    <li><a href="mailto:info@kokostalk.com"><i class="fas fa-envelope"></i> info@kokostalk.com</a></li>
+                    <li><a href="tel:+50322223333"><i class="fas fa-phone"></i> +503 2222-3333</a></li>
+                    <li><a href="#"><i class="fas fa-map-marker-alt"></i> San Salvador, El Salvador</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Koko's Talk Group. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<script src="JS/lessonglobal.js"></script>
+</body>
+</html>

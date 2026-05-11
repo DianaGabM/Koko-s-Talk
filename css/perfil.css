@@ -1,0 +1,553 @@
+:root {
+            --green: #58cc02;
+            --blue: #1cb0f6;
+            --orange: #ff9600;
+            --purple: #ce82ff;
+            --red: #ff4b4b;
+            --teal: #00d4aa;
+            --yellow: #ffc800;
+            --pink: #ff86d0;
+            --bg: #f7f7f7;
+            --card: #fff;
+            --text: #3c3c3c;
+            --text-light: #777;
+            --border: #e5e5e5;
+            --shadow: 0 4px 20px rgba(0,0,0,0.08);
+            --radius: 20px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        /* ── RETURN BUTTON ── */
+        .return-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.25);
+            backdrop-filter: blur(10px);
+            padding: 10px 18px;
+            border-radius: 50px;
+            color: #fff;                        /* ← color fijo blanco */
+            text-decoration: none;
+            font-weight: 700;
+            font-size: .9rem;
+            transition: all 0.3s ease;
+            z-index: 100;
+            border: 1.5px solid rgba(255,255,255,0.45);
+        }
+        .return-btn:hover {
+            background: rgba(255,255,255,0.38);
+            transform: translateX(-4px);
+        }
+        .return-btn svg { flex-shrink: 0; }
+
+        /* ── HERO BANNER ── */
+        .account-hero {
+            background: linear-gradient(135deg, #3A5BD9 0%, #2A4BC9 100%);
+            padding: 70px 24px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        .account-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        .hero-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            position: relative;
+        }
+        .avatar-wrap { position: relative; flex-shrink: 0; }
+        .avatar-circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.25);
+            backdrop-filter: blur(10px);
+            border: 4px solid rgba(255,255,255,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.8rem;
+            font-weight: 900;
+            color: #fff;
+            cursor: pointer;
+            transition: transform .2s;
+            overflow: hidden;
+        }
+        .avatar-circle:hover { transform: scale(1.05); }
+        .avatar-edit-btn {
+            position: absolute;
+            bottom: 2px;
+            right: 2px;
+            width: 28px;
+            height: 28px;
+            background: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--green);
+            font-size: .75rem;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        .hero-info h1 {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #fff;
+        }
+        .hero-info p {
+            color: rgba(255,255,255,.85);
+            font-size: .95rem;
+            margin-top: 4px;
+        }
+        .hero-badges {
+            display: flex;
+            gap: 10px;
+            margin-top: 14px;
+            flex-wrap: wrap;
+        }
+        /* Solo queda el badge de nivel */
+        .hero-badge {
+            background: rgba(255,255,255,0.25);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.4);
+            color: #fff;
+            font-size: .8rem;
+            font-weight: 800;
+            padding: 5px 14px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* ── MAIN LAYOUT ── */
+        .page-body {
+            max-width: 1100px;
+            margin: -40px auto 60px;
+            padding: 0 24px;
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 24px;
+        }
+
+        /* ── CARD ── */
+        .card {
+            background: var(--card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+        .card-header {
+            padding: 20px 22px 14px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .card-header h2 { font-size: 1rem; font-weight: 800; }
+        .card-header .icon-dot {
+            width: 32px;
+            height: 32px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .9rem;
+            color: #fff;
+            flex-shrink: 0;
+        }
+        .card-body { padding: 22px; }
+
+        /* ── LEFT COLUMN ── */
+        .left-col { display: flex; flex-direction: column; gap: 20px; }
+
+        /* Profile form */
+        .form-group { margin-bottom: 16px; }
+        .form-group label {
+            display: block;
+            font-size: .8rem;
+            font-weight: 800;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: .5px;
+            margin-bottom: 6px;
+        }
+        .form-control {
+            width: 100%;
+            padding: 11px 14px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            font-family: 'Nunito', sans-serif;
+            font-size: .95rem;
+            font-weight: 600;
+            color: var(--text);
+            background: var(--bg);
+            transition: border-color .2s, box-shadow .2s;
+            outline: none;
+        }
+        .form-control:focus {
+            border-color: var(--green);
+            box-shadow: 0 0 0 3px rgba(88,204,2,.12);
+        }
+        .save-btn {
+            width: 100%;
+            padding: 13px;
+            background: var(--green);
+            color: #fff;
+            border: none;
+            border-radius: 14px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 1rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: background .2s, transform .15s;
+            margin-top: 4px;
+        }
+        .save-btn:hover { background: #4db801; transform: translateY(-1px); }
+        .save-btn:active { transform: translateY(0); }
+
+        /* Mini stats */
+        .mini-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .mini-stat {
+            background: var(--bg);
+            border-radius: 14px;
+            padding: 14px;
+            text-align: center;
+            border: 2px solid var(--border);
+            transition: border-color .2s;
+        }
+        .mini-stat:hover { border-color: var(--green); }
+        .mini-stat-val { font-size: 1.6rem; font-weight: 900; line-height: 1; }
+        .mini-stat-label { font-size: .75rem; font-weight: 700; color: var(--text-light); margin-top: 4px; }
+
+        /* Achievements */
+        .badges-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+        .badge-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+        }
+        .badge-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            transition: transform .2s;
+        }
+        .badge-item:hover .badge-icon { transform: scale(1.1) rotate(5deg); }
+        .badge-icon.locked { background: var(--border) !important; filter: grayscale(1); }
+        .badge-icon.locked i { color: #aaa !important; }
+        .badge-label { font-size: .68rem; font-weight: 800; color: var(--text-light); text-align: center; }
+
+        /* ── RIGHT COLUMN ── */
+        .right-col { display: flex; flex-direction: column; gap: 20px; }
+
+        /* Progress ring */
+        .progress-ring-section { display: flex; align-items: center; gap: 28px; }
+        .ring-container { position: relative; flex-shrink: 0; }
+        .ring-svg { transform: rotate(-90deg); }
+        .ring-bg { fill: none; stroke: var(--border); stroke-width: 10; }
+        .ring-fill {
+            fill: none;
+            stroke-width: 10;
+            stroke-linecap: round;
+            transition: stroke-dashoffset 1.2s cubic-bezier(.4,0,.2,1);
+        }
+        .ring-text {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .ring-percent { font-size: 1.9rem; font-weight: 900; line-height: 1; }
+        .ring-sub { font-size: .72rem; font-weight: 700; color: var(--text-light); }
+        .ring-details { flex: 1; }
+        .ring-details h3 { font-size: 1.1rem; font-weight: 900; margin-bottom: 6px; }
+        .ring-details p { font-size: .88rem; color: var(--text-light); font-weight: 600; line-height: 1.5; }
+        .overall-motivation {
+            margin-top: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            background: rgba(88,204,2,.1);
+            color: var(--green);
+            font-weight: 800;
+            font-size: .85rem;
+            padding: 7px 16px;
+            border-radius: 50px;
+        }
+
+        /* Level bars */
+        .level-bar-list { display: flex; flex-direction: column; gap: 18px; }
+        .level-bar-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+        .level-name-grp { display: flex; align-items: center; gap: 10px; }
+        .level-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+        .level-name { font-weight: 800; font-size: .95rem; }
+        .level-count { font-size: .85rem; font-weight: 700; color: var(--text-light); }
+        .bar-track { height: 12px; background: var(--border); border-radius: 100px; overflow: hidden; }
+        .bar-fill { height: 100%; border-radius: 100px; transition: width 1.2s cubic-bezier(.4,0,.2,1); width: 0%; }
+
+        /* Lessons scroll */
+        .lessons-scroll {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-height: 380px;
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+        .lessons-scroll::-webkit-scrollbar { width: 5px; }
+        .lessons-scroll::-webkit-scrollbar-track { background: var(--border); border-radius: 10px; }
+        .lessons-scroll::-webkit-scrollbar-thumb { background: var(--green); border-radius: 10px; }
+
+        .lesson-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 14px;
+            border-radius: 14px;
+            border: 2px solid var(--border);
+            transition: border-color .2s, background .2s;
+        }
+        .lesson-row.done { background: rgba(88,204,2,.04); border-color: rgba(88,204,2,.3); }
+        .lesson-row.current-active { background: rgba(28,176,246,.04); border-color: rgba(28,176,246,.4); }
+        .lesson-row-icon {
+            width: 38px; height: 38px; border-radius: 11px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: .95rem; flex-shrink: 0;
+        }
+        .lesson-row-info { flex: 1; }
+        .lesson-row-title { font-size: .9rem; font-weight: 800; }
+        .lesson-row-level { font-size: .75rem; font-weight: 700; color: var(--text-light); }
+        .lesson-row-status { font-size: .85rem; font-weight: 800; display: flex; align-items: center; gap: 4px; }
+        .status-done { color: var(--green); }
+        .status-current { color: var(--blue); }
+        .status-locked { color: #ccc; }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 4px;
+            padding: 0 22px;
+            border-bottom: 1px solid var(--border);
+        }
+        .tab-btn {
+            padding: 12px 18px;
+            background: none;
+            border: none;
+            font-family: 'Nunito', sans-serif;
+            font-size: .88rem;
+            font-weight: 800;
+            color: var(--text-light);
+            cursor: pointer;
+            position: relative;
+            transition: color .2s;
+        }
+        .tab-btn::after {
+            content: '';
+            position: absolute;
+            bottom: -1px; left: 0; right: 0;
+            height: 3px;
+            background: var(--green);
+            border-radius: 3px 3px 0 0;
+            transform: scaleX(0);
+            transition: transform .2s;
+        }
+        .tab-btn.active { color: var(--green); }
+        .tab-btn.active::after { transform: scaleX(1); }
+        .tab-content { display: none; padding: 20px 22px; }
+        .tab-content.active { display: block; }
+
+        /* Avatar selector */
+        .avatar-selector {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,.5);
+            z-index: 999;
+            align-items: center;
+            justify-content: center;
+        }
+        .avatar-selector.open { display: flex; }
+        .avatar-modal {
+            background: #fff;
+            border-radius: 24px;
+            padding: 28px;
+            max-width: 380px;
+            width: 90%;
+        }
+        .avatar-modal h3 { font-weight: 900; margin-bottom: 18px; text-align: center; }
+        .avatar-options { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+        .avatar-opt {
+            width: 60px; height: 60px; border-radius: 50%;
+            border: 3px solid var(--border);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.6rem; cursor: pointer;
+            transition: border-color .2s, transform .15s;
+            background: var(--bg);
+        }
+        .avatar-opt:hover { border-color: var(--green); transform: scale(1.1); }
+        .avatar-opt.selected { border-color: var(--green); background: rgba(88,204,2,.1); }
+        .avatar-close {
+            display: block; margin: 18px auto 0;
+            background: var(--green); color: #fff;
+            border: none; border-radius: 12px;
+            padding: 11px 32px;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 800; font-size: .95rem; cursor: pointer;
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 30px; left: 50%;
+            transform: translateX(-50%) translateY(80px);
+            background: #3c3c3c; color: #fff;
+            padding: 12px 24px; border-radius: 50px;
+            font-weight: 800; font-size: .9rem;
+            z-index: 9999;
+            transition: transform .3s cubic-bezier(.4,0,.2,1);
+            white-space: nowrap;
+        }
+        .toast.show { transform: translateX(-50%) translateY(0); }
+
+        /* Certificates */
+        .certs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px; }
+        .cert-card {
+            border-radius: 18px; border: 2px solid var(--border);
+            overflow: hidden; transition: transform .2s, box-shadow .2s; position: relative;
+        }
+        .cert-card:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(0,0,0,0.12); }
+        .cert-card.earned { border-color: transparent; }
+        .cert-card.locked-cert { opacity: .55; filter: grayscale(.6); }
+
+        .cert-banner {
+            height: 110px; position: relative;
+            display: flex; align-items: center; justify-content: center; overflow: hidden;
+        }
+        .cert-banner-icon { font-size: 3rem; position: relative; z-index: 1; filter: drop-shadow(0 4px 8px rgba(0,0,0,.2)); }
+        .cert-lock-overlay {
+            position: absolute; inset: 0;
+            background: rgba(255,255,255,.6);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2rem; color: #aaa; z-index: 2;
+        }
+
+        .cert-body { padding: 16px; background: #fff; }
+        .cert-title { font-size: 1rem; font-weight: 900; margin-bottom: 4px; }
+        .cert-subtitle { font-size: .78rem; font-weight: 700; color: var(--text-light); margin-bottom: 12px; }
+        .cert-progress-bar { height: 7px; background: var(--border); border-radius: 100px; overflow: hidden; margin-bottom: 8px; }
+        .cert-progress-fill { height: 100%; border-radius: 100px; transition: width 1.3s cubic-bezier(.4,0,.2,1); width: 0%; }
+        .cert-progress-label {
+            font-size: .75rem; font-weight: 700; color: var(--text-light);
+            display: flex; justify-content: space-between; margin-bottom: 14px;
+        }
+        .cert-footer { display: flex; align-items: center; justify-content: space-between; }
+        .cert-date { font-size: .75rem; font-weight: 700; color: var(--text-light); }
+        .cert-action-btn {
+            padding: 8px 18px; border-radius: 50px; border: none;
+            font-family: 'Nunito', sans-serif; font-weight: 800; font-size: .8rem;
+            cursor: pointer; transition: opacity .2s, transform .15s;
+        }
+        .cert-action-btn:hover { opacity: .85; transform: scale(1.03); }
+        .cert-action-btn.download { color: #fff; }
+        .cert-action-btn.locked-btn { background: var(--border); color: var(--text-light); cursor: not-allowed; }
+
+        /* Certificate preview modal */
+        .cert-preview-overlay {
+            display: none; position: fixed; inset: 0;
+            background: rgba(0,0,0,.7); z-index: 999;
+            align-items: center; justify-content: center; padding: 20px;
+        }
+        .cert-preview-overlay.open { display: flex; }
+        .cert-preview-wrap {
+            background: #fff; border-radius: 24px; padding: 28px;
+            max-width: 700px; width: 100%; position: relative;
+            box-shadow: 0 20px 60px rgba(0,0,0,.3);
+            animation: certPop .35s cubic-bezier(.34,1.56,.64,1);
+        }
+        @keyframes certPop {
+            from { transform: scale(.85); opacity: 0; }
+            to   { transform: scale(1);  opacity: 1; }
+        }
+        .cert-preview-close {
+            position: absolute; top: 16px; right: 16px;
+            width: 34px; height: 34px; border-radius: 50%;
+            border: none; background: var(--bg); font-size: 1.1rem;
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            color: var(--text-light);
+        }
+
+        .certificate-doc {
+            border: 3px solid; border-radius: 18px;
+            padding: 32px 36px; text-align: center;
+            position: relative; overflow: hidden;
+        }
+        .certificate-doc::before {
+            content: ''; position: absolute; inset: 8px;
+            border: 1.5px dashed; border-radius: 12px;
+            opacity: .25; pointer-events: none;
+        }
+        .cert-doc-logo { font-size: 2.2rem; margin-bottom: 4px; }
+        .cert-doc-brand { font-size: .9rem; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; opacity: .7; margin-bottom: 16px; }
+        .cert-doc-headline { font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 3px; opacity: .6; margin-bottom: 8px; }
+        .cert-doc-name { font-size: 2rem; font-weight: 900; margin-bottom: 10px; }
+        .cert-doc-body { font-size: .9rem; font-weight: 600; line-height: 1.6; opacity: .75; max-width: 400px; margin: 0 auto 20px; }
+        .cert-doc-level { display: inline-block; padding: 8px 28px; border-radius: 50px; font-size: 1rem; font-weight: 900; color: #fff; margin-bottom: 20px; }
+        .cert-doc-divider { height: 1px; opacity: .2; margin: 16px 0; }
+        .cert-doc-footer { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 16px; }
+        .cert-doc-sig { text-align: left; }
+        .cert-doc-sig-line { height: 2px; width: 120px; margin-bottom: 4px; border-radius: 2px; opacity: .4; }
+        .cert-doc-sig-label { font-size: .72rem; font-weight: 700; opacity: .55; text-transform: uppercase; letter-spacing: 1px; }
+        .cert-doc-date { text-align: right; font-size: .78rem; font-weight: 700; opacity: .55; }
+        .cert-doc-seal { position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%); opacity: .1; font-size: 6rem; pointer-events: none; }
+
+        .cert-preview-btns { display: flex; gap: 12px; margin-top: 20px; justify-content: center; }
+        .cert-preview-btn {
+            padding: 11px 28px; border-radius: 50px; border: none;
+            font-family: 'Nunito', sans-serif; font-weight: 800; font-size: .9rem;
+            cursor: pointer; display: flex; align-items: center; gap: 8px;
+            transition: opacity .2s;
+        }
+        .cert-preview-btn:hover { opacity: .85; }
+        .cert-preview-btn.primary { color: #fff; }
+        .cert-preview-btn.secondary { background: var(--bg); color: var(--text); }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .page-body { grid-template-columns: 1fr; margin-top: -30px; }
+            .hero-inner { flex-direction: column; text-align: center; }
+            .hero-badges { justify-content: center; }
+            .mini-stats { grid-template-columns: repeat(4, 1fr); }
+            .badges-grid { grid-template-columns: repeat(4, 1fr); }
+            .progress-ring-section { flex-direction: column; text-align: center; }
+            .certs-grid { grid-template-columns: 1fr; }
+            .cert-doc-footer { flex-direction: column; gap: 12px; align-items: center; }
+        }

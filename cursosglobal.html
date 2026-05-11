@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Koko's Talk - Specialized Courses in LESSA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="img/logo.png" type="image/png">
+    <link rel="stylesheet" href="css/cursosglobal.css">
+
+ 
+</head>
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar-container">
+    <nav class="navbar">
+        <div class="brand">
+            <img src="img/logo.png" alt="logo">
+            <div class="brand-text">Koko´s Talk</div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="lessonglobal.html">Lessons</a></li>
+            <li><a href="cursosglobal.html" class="active">Courses</a></li>
+            <li><a href="diccinario.html">Dictionary</a></li>
+            <li><a href="about.html">About Us</a></li>
+        </ul>
+        <div class="email-area" id="emailCopyTrigger">
+            <span class="email-icon"><img src="img/invitacion/usuario.png" alt="user"></span>
+        </div>
+    </nav>
+</div>
+
+<!-- MODAL POPUP -->
+<div class="modal-overlay" id="notifyModal">
+    <div class="modal-container">
+        <div class="modal-header">
+            <div class="modal-icon">
+                <i class="fas fa-bell"></i>
+            </div>
+            <h3>We'll let you know!</h3>
+            <p>Don't miss this amazing course</p>
+        </div>
+        <div class="modal-body">
+            <p><strong>✨ Technology Vocabulary in LESSA ✨</strong></p>
+            <p>We are preparing exclusive content for you. Let us notify you when it's ready.</p>
+            
+            <p class="small-note">
+                <i class="fas fa-check-circle" style="color: #10b981;"></i> You will receive a notification as soon as the course is ready
+            </p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn-modal btn-modal-secondary" id="closeModalBtn">Close</button>
+            <button class="btn-modal btn-modal-primary" id="confirmNotifyBtn">
+                <i class="fas fa-bell"></i> Notify me
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- COURSES SECTION -->
+<section class="relative py-12 lg:py-16 px-4 sm:px-6 lg:px-8 overflow-hidden" style="margin-top: 80px;">
+    <div class="max-w-7xl mx-auto relative z-10">
+        
+        <div class="hero-section reveal">
+            <div class="hero-image-side">
+                <img src="img/Koko.png.png" alt="koko">
+            </div>
+            <div class="hero-text-side">
+                <h2>Learn with specialized courses in <span>sign language</span></h2>
+                <p>Courses designed to develop inclusive communication skills in religious and health contexts with hands-on experience.</p>
+            </div>
+        </div>
+
+        <div class="mb-12 reveal reveal-delay-1">
+            <div class="section-label">
+                <div class="section-label-line"></div>
+                <h3 class="section-title">Specialized Courses in LESSA</h3>
+            </div>
+            
+            <div class="courses-grid">
+                <!-- COURSE 1 -->
+                <article class="course-card reveal reveal-delay-2" tabindex="0">
+                    <div class="card-image-wrapper">
+                        <img src="https://fotografias.lasexta.com/clipping/cmsimages01/2015/06/03/2A28A047-BC31-4768-B176-EE989C536466/98.jpg?crop=778,438,x11,y0&width=1900&height=1069&optimize=high&format=webply" alt="Religion">
+                        <div class="card-image-overlay"></div>
+                        <div class="rating-badge">
+                            <i class="fas fa-star star-icon"></i>
+                            <span class="text-sm font-bold text-gray-800">4.9</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <span class="category-badge academic mb-2 inline-block">
+                            <i class="fas fa-hands-praying mr-1 text-xs"></i>Religion
+                        </span>
+                        <h4 class="text-base font-bold text-gray-900 mb-1 leading-tight">Religious Vocabulary in LESSA</h4>
+                        <p class="instructor-name text-xs mb-2">By Daniela Lopez</p>
+                        <div class="course-meta text-xs mb-3">
+                            <span><i class="far fa-clock meta-icon"></i>8 lessons</span>
+                            <span class="meta-dot"></span>
+                            <span><i class="fas fa-video meta-icon"></i>Online</span>
+                        </div>
+                        <a href="course.html" class="btn-course-link">
+                            View course <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- COURSE 2 -->
+                <article class="course-card reveal reveal-delay-3" tabindex="0">
+                    <div class="card-image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&h=400&fit=crop" alt="Health">
+                        <div class="card-image-overlay"></div>
+                        <div class="rating-badge">
+                            <i class="fas fa-star star-icon"></i>
+                            <span class="text-sm font-bold text-gray-800">4.8</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <span class="category-badge personal mb-2 inline-block">
+                            <i class="fas fa-heartbeat mr-1 text-xs"></i>Health
+                        </span>
+                        <h4 class="text-base font-bold text-gray-900 mb-1 leading-tight">Health Vocabulary in LESSA</h4>
+                        <p class="instructor-name text-xs mb-2">By Daniela Lopez</p>
+                        <div class="course-meta text-xs mb-3">
+                            <span><i class="far fa-clock meta-icon"></i>12 modules</span>
+                            <span class="meta-dot"></span>
+                            <span><i class="fas fa-stethoscope meta-icon"></i>Online</span>
+                        </div>
+                        <a href="course1.html" class="btn-course-link">
+                            View course <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- COURSE 3 -->
+                <article class="course-card coming-soon reveal reveal-delay-4" tabindex="0">
+                    <div class="card-image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600&h=400&fit=crop" alt="Technology">
+                        <div class="card-image-overlay"></div>
+                        <div class="coming-badge">
+                            <i class="fas fa-hourglass-half"></i> Coming soon
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <span class="category-badge future mb-2 inline-block">
+                            <i class="fas fa-laptop-code mr-1 text-xs"></i>Technology
+                        </span>
+                        <h4 class="text-base font-bold text-gray-900 mb-1 leading-tight">Technology Vocabulary in LESSA</h4>
+                        <p class="instructor-name text-xs mb-2">Coming soon</p>
+                        <div class="course-meta text-xs mb-3">
+                            <span><i class="far fa-calendar-alt meta-icon"></i>Launch 2026</span>
+                            <span class="meta-dot"></span>
+                            <span><i class="fas fa-rocket meta-icon"></i>In development</span>
+                        </div>
+                        <button class="btn-course disabled text-sm py-2" id="openModalBtn">
+                            <i class="fas fa-bell"></i> Notify me
+                        </button>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="wave-top">
+      <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path
+          d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
+          class="shape-fill"></path>
+      </svg>
+    </div>
+
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-column">
+          <h4>Koko's Talk</h4>
+          <p>Transforming lives through inclusive communication. Learn LESSA dynamically and professionally.</p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+          </div>
+        </div>
+        <div class="footer-column">
+          <h4>Resources</h4>
+          <ul>
+             <li><a href="index.html">Home</a></li>
+             <li><a href="lessonglobal.html">Lessons</a></li>
+             <li><a href="cursosglobal.html">Courses</a></li>
+             <li><a href="diccinario.html">Dictionary</a></li>
+             <li><a href="about.html">About us</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="mailto:info@kokostalk.com"><i class="fas fa-envelope"></i> info@kokostalk.com</a></li>
+            <li><a href="tel:+50322223333"><i class="fas fa-phone"></i> +503 2222-3333</a></li>
+            <li><a href="#"><i class="fas fa-map-marker-alt"></i> San Salvador, El Salvador</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Koko's Talk Group. All rights reserved.</p>
+      </div>
+    </div>
+</footer>
+
+<script>
+    // MODAL POPUP
+    const modal = document.getElementById('notifyModal');
+    const openModalBtn = document.getElementById('openModalBtn');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const confirmNotifyBtn = document.getElementById('confirmNotifyBtn');
+
+    // Open modal
+    if (openModalBtn) {
+        openModalBtn.addEventListener('click', () => {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+    }
+
+    // Close modal
+    function closeModal() {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    if (closeModalBtn) {
+        closeModalBtn.addEventListener('click', closeModal);
+    }
+
+    // Confirm notification
+    if (confirmNotifyBtn) {
+        confirmNotifyBtn.addEventListener('click', () => {
+            const originalText = confirmNotifyBtn.innerHTML;
+            confirmNotifyBtn.innerHTML = '<i class="fas fa-check"></i> Registered!';
+            confirmNotifyBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+            
+            setTimeout(() => {
+                closeModal();
+                setTimeout(() => {
+                    confirmNotifyBtn.innerHTML = originalText;
+                    confirmNotifyBtn.style.background = 'linear-gradient(135deg, #ffa41b, #e69500)';
+                    showToast();
+                }, 300);
+            }, 800);
+        });
+    }
+
+    // Close modal by clicking outside
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+
+    function showToast() {
+        const toast = document.createElement('div');
+        toast.innerHTML = `
+            <div style="position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #1e293b, #0f172a); color: white; padding: 12px 24px; border-radius: 50px; font-size: 0.9rem; font-weight: 500; z-index: 10000; box-shadow: 0 10px 25px rgba(0,0,0,0.2); display: flex; align-items: center; gap: 10px; backdrop-filter: blur(10px); animation: slideUp 0.3s ease;">
+                <i class="fas fa-check-circle" style="color: #10b981;"></i>
+                We'll let you know when the course is ready!
+            </div>
+        `;
+        document.body.appendChild(toast);
+        
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideUp {
+                from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+                to { opacity: 1; transform: translateX(-50%) translateY(0); }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        setTimeout(() => {
+            toast.remove();
+        }, 3000);
+    }
+
+    const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => { 
+            if (entry.isIntersecting) entry.target.classList.add('active'); 
+        });
+    }, observerOptions);
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+    const navbarContainer = document.querySelector('.navbar-container');
+    if (navbarContainer) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 10) {
+                navbarContainer.style.background = 'rgba(255, 255, 255, 0.85)';
+                navbarContainer.style.backdropFilter = 'blur(12px)';
+            } else {
+                navbarContainer.style.background = 'transparent';
+                navbarContainer.style.backdropFilter = 'blur(0px)';
+            }
+        });
+    }
+</script>
+   <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            orange: '#ffa41b',
+                            'orange-light': '#ffb347',
+                            'orange-dark': '#e69500',
+                            'orange-50': '#FFF8F0',
+                            blue: '#2563EB',
+                            'blue-light': '#3B82F6',
+                            'blue-dark': '#1D4ED8',
+                            'blue-50': '#EFF6FF',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>

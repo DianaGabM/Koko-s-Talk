@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Koko's Talk - AI Practice | Salvadoran Sign Language</title>
+    
+    <!-- Tailwind CDN (visual configuration) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/practicaconia.css">
+    
+    <!-- MediaPipe Hands for hand recognition -->
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ===== NEW STYLES ONLY FOR STATUS OVERLAY ===== */
+        .status-overlay {
+            position: absolute;
+            top: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            min-width: 280px;
+            max-width: 90%;
+            border-radius: 16px;
+            padding: 12px 24px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            backdrop-filter: blur(8px);
+            transition: all 0.3s ease;
+        }
+        
+        .status-overlay.waiting {
+            background-color: rgba(255, 255, 255, 0.95);
+            color: #666;
+            border: 2px solid #e5e7eb;
+        }
+        
+        .status-overlay.correct {
+            background-color: rgba(34, 197, 94, 0.95);
+            color: white;
+            border: 2px solid #22c55e;
+        }
+        
+        .status-overlay.incorrect {
+            background-color: rgba(239, 68, 68, 0.95);
+            color: white;
+            border: 2px solid #ef4444;
+        }
+        
+        /* Hide accuracy display */
+        #accuracyDisplay {
+            display: none !important;
+        }
+    </style>
+
+</head>
+<body>
+
+<a href="diccinario.html" class="return-btn">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m15 18-6-6 6-6"/>
+    </svg>
+    <span>return</span>
+</a>
+
+<!-- ========== PRACTICE SECTION ========== -->
+<section id="dictionary" class="section">
+    <div class="main-container">
+        <!-- Decorative shapes -->
+        <div class="shape-left"></div>
+        <div class="shape-right"></div>
+        <div class="shape-bottom"></div>
+        
+        <h1 class="main-title">
+            AI Practice<br>
+            <span class="highlight">Learn each letter</span>
+        </h1>
+        <p style="color: #666; margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto; font-size: 18px;">
+            Activate your camera, select a letter and show the sign. The artificial intelligence will analyze your hand in real time.
+        </p>
+
+        <div class="grid-3" style="align-items: start;">
+            <!-- Left panel: selection -->
+            <div class="flex flex-col gap-4">
+                <div class="game-card">
+                    <h3 style="color: #3b4cca; margin-bottom: 20px; font-size: 24px;">
+                        <i class="fas fa-hand-point-up" style="color: #f59e0b; margin-right: 10px;"></i>
+                        Select a Letter
+                    </h3>
+                    <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 20px;" id="practiceQuickSelect"></div>
+                    <select id="practiceSelect" onchange="setPracticeLetter(this.value)">
+                        <option value="">Select letter...</option>
+                    </select>
+                </div>
+
+                <div class="game-card" style="border-color: #3b4cca;">
+                    <h4 style="color: #3b4cca; margin-bottom: 15px;">Target Letter</h4>
+                    <div style="text-align: center;">
+                        <span id="targetLetter" style="font-size: 48px; font-weight: 800; color: #f59e0b;">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Camera + guide -->
+            <div class="flex flex-col gap-4" style="grid-column: span 2;">
+                <div class="camera-container" style="height: 400px; position: relative;">
+                    <video id="practiceVideo" style="width: 100%; height: 100%; object-fit: cover;" playsinline></video>
+                    <canvas id="practiceCanvas" style="position: absolute; inset: 0; width: 100%; height: 100%;"></canvas>
+                    
+                    <!-- Practice Status Overlay (inside camera, on top) -->
+                    <div id="statusOverlay" class="status-overlay waiting">
+                        <p style="margin: 0;">Select a letter and activate the camera to start</p>
+                    </div>
+                    
+                    <div id="cameraOverlay" class="camera-overlay">
+                        <i class="fas fa-camera" style="font-size: 64px; color: #f59e0b; margin-bottom: 20px;"></i>
+                        <h3 style="font-size: 28px; margin-bottom: 10px;">Camera Off</h3>
+                        <button onclick="startPracticeCamera()" class="btn-primary">
+                            <i class="fas fa-play"></i> Start Camera
+                        </button>
+                    </div>
+                    <div id="accuracyDisplay">
+                        Accuracy: <span id="accuracyValue">0%</span>
+                    </div>
+                </div>
+
+                <div id="letterGuide" class="game-card hidden-section">
+                    <div style="display: flex; gap: 30px; align-items: center; flex-wrap: wrap;">
+                        <div id="guideLetter">A</div>
+                        <div style="flex: 1;">
+                            <h4 style="color: #3b4cca; margin-bottom: 10px; font-size: 20px;">How to make this sign:</h4>
+                            <p id="guideDescription" style="color: #666; line-height: 1.6;"></p>
+                            <div style="display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap;">
+                                <span id="guideLevel"></span>
+                                <span id="guideExample"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer class="footer">
+    <div class="wave-top">
+        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+        </svg>
+    </div>
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h4>Koko's Talk</h4>
+                <p>Transforming lives through inclusive communication. Learn LESSA dynamically and professionally.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h4>Resources</h4>
+                <ul><li><a href="#">Blog</a></li><li><a href="#">LESSA Guide</a></li><li><a href="#">Community</a></li><li><a href="#">Help Center</a></li></ul>
+            </div>
+            <div class="footer-column">
+                <h4>Contact</h4>
+                <ul><li><a href="#"><i class="fas fa-envelope"></i> info@kokostalk.com</a></li>
+                <li><a href="#"><i class="fas fa-phone"></i> +503 2222-3333</a></li>
+                <li><a href="#"><i class="fas fa-map-marker-alt"></i> San Salvador, El Salvador</a></li></ul>
+            </div>
+        </div>
+        <div class="footer-bottom"><p>&copy; 2026 Koko's Talk Group. All rights reserved.</p></div>
+    </div>
+</footer>
+
+<script>
+    // ============================================================
+    // COMPLETE LESSA ALPHABET (original descriptions and examples)
+    // ============================================================
+    const lessaAlphabet = {
+        'A': { description: "Close your fist with your thumb extended to the side.", example: "Avocado", level: "Basic", tip: "Keep your fingers closed." },
+        'B': { description: "Open hand, fingers together, thumb bent.", example: "Boat", level: "Basic", tip: "Straight fingers." },
+        'C': { description: "Form a 'C' by curving your fingers and thumb.", example: "House", level: "Basic", tip: "Soft hug." },
+        'D': { description: "Index finger up, rest in fist.", example: "Finger", level: "Basic" },
+        'E': { description: "All fingers bent toward the palm.", example: "Elephant", level: "Basic" },
+        'F': { description: "Index finger and thumb forming a circle.", example: "Photo", level: "Basic" },
+        'G': { description: "Index finger forward, thumb up.", example: "Cat", level: "Basic" },
+        'H': { description: "Index and middle fingers separated horizontally.", example: "Leaf", level: "Basic" },
+        'I': { description: "Pinky finger extended.", example: "Church", level: "Basic" },
+        'J': { description: "Pinky draws a J in the air.", example: "Toy", level: "Intermediate" },
+        'K': { description: "Index and middle in V, thumb in the middle.", example: "Kilo", level: "Intermediate" },
+        'L': { description: "Index up, thumb out.", example: "Moon", level: "Intermediate" },
+        'M': { description: "Three fingers over thumb.", example: "Mom", level: "Intermediate" },
+        'N': { description: "Two fingers bent over thumb.", example: "Cloud", level: "Intermediate" },
+        'O': { description: "Circle with all fingers.", example: "Eye", level: "Intermediate" },
+        'P': { description: "K inverted downward.", example: "Dad", level: "Intermediate" },
+        'Q': { description: "Pinch downward.", example: "Cheese", level: "Intermediate" },
+        'R': { description: "Index and middle fingers crossed.", example: "Mouse", level: "Intermediate" },
+        'S': { description: "Closed fist.", example: "Sun", level: "Advanced" },
+        'T': { description: "Index finger over thumb.", example: "Cup", level: "Advanced" },
+        'U': { description: "Two fingers together upward.", example: "Grape", level: "Advanced" },
+        'V': { description: "V with two fingers.", example: "Cow", level: "Advanced" },
+        'W': { description: "Three fingers extended.", example: "Waffle", level: "Advanced" },
+        'X': { description: "Index finger hooked.", example: "Xylophone", level: "Advanced" },
+        'Y': { description: "Thumb and pinky extended.", example: "Yoyo", level: "Advanced" },
+        'Z': { description: "Index finger draws a Z.", example: "Shoe", level: "Advanced" }
+    };
+
+    let practiceLetter = null;      // Selected target letter
+    let handsInstance = null;
+    let cameraInstance = null;
+    let isCameraRunning = false;
+
+    // ============================================================
+    // RENDER SELECTORS (Quick buttons + Select dropdown)
+    // ============================================================
+    function renderPracticeSelect() {
+        const select = document.getElementById('practiceSelect');
+        const quick = document.getElementById('practiceQuickSelect');
+        select.innerHTML = '<option value="">Select letter...</option>';
+        quick.innerHTML = '';
+        Object.keys(lessaAlphabet).forEach(letter => {
+            const opt = document.createElement('option');
+            opt.value = letter;
+            opt.textContent = `${letter} - ${lessaAlphabet[letter].example}`;
+            select.appendChild(opt);
+            const btn = document.createElement('button');
+            btn.textContent = letter;
+            btn.className = 'btn-quick';
+            btn.onclick = () => setPracticeLetter(letter);
+            quick.appendChild(btn);
+        });
+    }
+
+    // ============================================================
+    // LETTER SELECTION - Updates UI and guide
+    // ============================================================
+    function setPracticeLetter(letter) {
+        if (!letter) return;
+        practiceLetter = letter;
+        document.getElementById('targetLetter').innerText = letter;
+        document.getElementById('practiceSelect').value = letter;
+        const data = lessaAlphabet[letter];
+        const guideDiv = document.getElementById('letterGuide');
+        guideDiv.classList.remove('hidden-section');
+        guideDiv.style.display = 'block';
+        document.getElementById('guideLetter').innerText = letter;
+        document.getElementById('guideDescription').innerText = data.description;
+        document.getElementById('guideLevel').innerText = `Level ${data.level}`;
+        document.getElementById('guideExample').innerText = `Example: ${data.example}`;
+        // Reset feedback to neutral state
+        updatePracticeFeedback('waiting', `📖 Practice the letter ${letter}. Show the sign in front of the camera`, 0);
+    }
+
+    // ============================================================
+    // VISUAL FEEDBACK UPDATE (Overlay superimposed on camera)
+    // ============================================================
+    function updatePracticeFeedback(status, message, accuracy = 0) {
+        const overlay = document.getElementById('statusOverlay');
+        
+        // Remove previous classes
+        overlay.classList.remove('waiting', 'correct', 'incorrect');
+        
+        if (status === 'correct') {
+            overlay.classList.add('correct');
+            overlay.innerHTML = `<p style="margin: 0;"><i class="fas fa-check-circle"></i> ${message}</p>`;
+        } else if (status === 'incorrect') {
+            overlay.classList.add('incorrect');
+            overlay.innerHTML = `<p style="margin: 0;"><i class="fas fa-times-circle"></i> ${message}</p>`;
+        } else {
+            overlay.classList.add('waiting');
+            overlay.innerHTML = `<p style="margin: 0;">${message}</p>`;
+        }
+    }
+
+    // ============================================================
+    // INTELLIGENT RECOGNITION ALGORITHM (based on real landmarks)
+    // Calculates specific accuracy for the selected letter.
+    // If accuracy >= 50% -> considered correct
+    // If accuracy < 50% -> incorrect
+    // Does NOT use random, evaluates real hand patterns.
+    // ============================================================
+    function analyzeHandShapeForLetter(landmarks, targetLetter) {
+        if (!landmarks || landmarks.length < 21) return 0;
+        
+        // Helper functions to detect extended or bent fingers
+        // Compare Y coordinates (for index, middle, ring, pinky fingers)
+        // and X coordinates for thumb (orientation)
+        const thumbTip = landmarks[4];
+        const thumbIp = landmarks[3];
+        const indexTip = landmarks[8];
+        const indexMcp = landmarks[5];
+        const middleTip = landmarks[12];
+        const middleMcp = landmarks[9];
+        const ringTip = landmarks[16];
+        const ringMcp = landmarks[13];
+        const pinkyTip = landmarks[20];
+        const pinkyMcp = landmarks[17];
+        const wrist = landmarks[0];
+        
+        // Finger extension detection: finger is extended if tip Y is less than base (MCP) Y
+        const indexExtended = indexTip.y < indexMcp.y;
+        const middleExtended = middleTip.y < middleMcp.y;
+        const ringExtended = ringTip.y < ringMcp.y;
+        const pinkyExtended = pinkyTip.y < pinkyMcp.y;
+        
+        // Thumb: extended laterally if its X is less than index base X (for right hand)
+        // robust approximation
+        const thumbExtended = thumbTip.x < thumbIp.x - 0.02;
+        
+        // Thumb-index distance for circles (letters like C, O, F)
+        const thumbIndexDist = Math.hypot(thumbTip.x - indexTip.x, thumbTip.y - indexTip.y);
+        const isCircle = thumbIndexDist < 0.07;
+        
+        // Count extended fingers (excluding thumb)
+        let extendedFingers = 0;
+        if (indexExtended) extendedFingers++;
+        if (middleExtended) extendedFingers++;
+        if (ringExtended) extendedFingers++;
+        if (pinkyExtended) extendedFingers++;
+        
+        // --- Letter-specific logic, returns accuracy between 0 and 100 ---
+        // Carefully designed rules according to each LESSA sign configuration
+        
+        switch(targetLetter) {
+            case 'A': // Fist with thumb extended
+                if (extendedFingers === 0 && thumbExtended) return 92;
+                if (extendedFingers === 0) return 65;
+                if (extendedFingers <= 1) return 40;
+                return 15;
+                
+            case 'B': // Open hand, fingers together, thumb folded
+                if (extendedFingers === 4 && !thumbExtended) return 94;
+                if (extendedFingers === 4) return 70;
+                if (extendedFingers >= 3) return 45;
+                return 20;
+                
+            case 'C': // C shape
+                if (isCircle && extendedFingers >= 3) return 90;
+                if (isCircle) return 70;
+                if (extendedFingers >= 3) return 50;
+                return 25;
+                
+            case 'D': // Only index up
+                if (indexExtended && !middleExtended && !ringExtended && !pinkyExtended) return 95;
+                if (indexExtended && extendedFingers === 1) return 80;
+                if (indexExtended) return 55;
+                return 20;
+                
+            case 'E': // Fingers bent toward palm (all tucked)
+                if (extendedFingers === 0 && !thumbExtended && thumbIndexDist < 0.09) return 88;
+                if (extendedFingers === 0) return 65;
+                return 25;
+                
+            case 'F': // Index finger and thumb circle (like OK)
+                if (isCircle && indexExtended && !middleExtended && !ringExtended && !pinkyExtended) return 93;
+                if (isCircle && indexExtended) return 75;
+                if (isCircle) return 55;
+                return 20;
+                
+            case 'G': // Index forward, thumb up
+                if (indexExtended && thumbExtended && !middleExtended && !ringExtended && !pinkyExtended) return 91;
+                if (indexExtended && thumbExtended) return 70;
+                if (indexExtended) return 45;
+                return 15;
+                
+            case 'H': // Index and middle horizontal separated
+                if (indexExtended && middleExtended && !ringExtended && !pinkyExtended) return 92;
+                if (indexExtended && middleExtended) return 75;
+                if (extendedFingers >= 2) return 50;
+                return 20;
+                
+            case 'I': // Only pinky extended
+                if (pinkyExtended && !indexExtended && !middleExtended && !ringExtended) return 94;
+                if (pinkyExtended && extendedFingers === 1) return 80;
+                if (pinkyExtended) return 55;
+                return 15;
+                
+            case 'J': // Pinky draws J (static evaluation values pinky extended)
+                if (pinkyExtended && !indexExtended && !middleExtended && !ringExtended) return 85;
+                if (pinkyExtended) return 60;
+                return 20;
+                
+            case 'K': // Index and middle in V, thumb between them
+                if (indexExtended && middleExtended && thumbExtended && !ringExtended && !pinkyExtended) return 90;
+                if (indexExtended && middleExtended && thumbExtended) return 75;
+                if (indexExtended && middleExtended) return 55;
+                return 20;
+                
+            case 'L': // L with index and thumb
+                if (indexExtended && thumbExtended && !middleExtended && !ringExtended && !pinkyExtended) return 96;
+                if (indexExtended && thumbExtended) return 75;
+                if (indexExtended) return 45;
+                return 15;
+                
+            case 'M': // Three fingers over thumb (index, middle, ring closed)
+                if (!indexExtended && !middleExtended && !ringExtended && pinkyExtended === false && thumbExtended === false) return 88;
+                if (extendedFingers === 0) return 65;
+                return 30;
+                
+            case 'N': // Two fingers bent (similar to M but with two)
+                if (extendedFingers === 0 && !thumbExtended) return 85;
+                return 40;
+                
+            case 'O': // Perfect circle with all fingers
+                if (isCircle && extendedFingers === 0 && !thumbExtended) return 92;
+                if (isCircle) return 70;
+                if (extendedFingers === 0) return 45;
+                return 20;
+                
+            case 'P': // K downward (detect index+middle+thumb)
+                if (indexExtended && middleExtended && thumbExtended && extendedFingers === 2) return 86;
+                if (indexExtended && middleExtended) return 60;
+                return 25;
+                
+            case 'Q': // Pinch downward (similar to F but orientation)
+                if (isCircle && indexExtended) return 87;
+                if (isCircle) return 65;
+                return 20;
+                
+            case 'R': // Index and middle crossed (cross detection by distance)
+                if (indexExtended && middleExtended && Math.abs(indexTip.x - middleTip.x) < 0.03 && Math.abs(indexTip.y - middleTip.y) < 0.03) return 89;
+                if (indexExtended && middleExtended) return 60;
+                return 20;
+                
+            case 'S': // Firm closed fist
+                if (extendedFingers === 0 && !thumbExtended) return 95;
+                if (extendedFingers === 0) return 70;
+                return 25;
+                
+            case 'T': // Index over thumb
+                if (thumbExtended && indexExtended && !middleExtended && !ringExtended && !pinkyExtended) return 90;
+                if (thumbExtended && !middleExtended) return 65;
+                return 25;
+                
+            case 'U': // Two fingers together upward
+                if (indexExtended && middleExtended && !ringExtended && !pinkyExtended && Math.abs(indexTip.x - middleTip.x) < 0.025) return 93;
+                if (indexExtended && middleExtended) return 70;
+                return 20;
+                
+            case 'V': // V with two fingers separated
+                if (indexExtended && middleExtended && !ringExtended && !pinkyExtended && Math.abs(indexTip.x - middleTip.x) > 0.045) return 94;
+                if (indexExtended && middleExtended) return 65;
+                return 20;
+                
+            case 'W': // Three fingers extended
+                if (indexExtended && middleExtended && ringExtended && !pinkyExtended) return 92;
+                if (extendedFingers >= 3) return 70;
+                return 30;
+                
+            case 'X': // Hooked index (detect strong flexion: tip Y lower than MCP but with angle)
+                if (indexTip.y > indexMcp.y + 0.02 && !middleExtended && !ringExtended) return 85;
+                if (!middleExtended && !ringExtended) return 55;
+                return 20;
+                
+            case 'Y': // Thumb and pinky extended
+                if (thumbExtended && pinkyExtended && !indexExtended && !middleExtended && !ringExtended) return 96;
+                if (thumbExtended && pinkyExtended) return 75;
+                if (pinkyExtended) return 45;
+                return 15;
+                
+            case 'Z': // Index draws Z (static similar to index extended)
+                if (indexExtended && !middleExtended && !ringExtended && !pinkyExtended) return 80;
+                if (indexExtended) return 55;
+                return 20;
+                
+            default:
+                return 40;
+        }
+    }
+
+    // ============================================================
+    // MEDIAPIPE CALLBACK: processes each frame and validates the letter
+    // ============================================================
+    function onMediaPipeResults(results) {
+        const video = document.getElementById('practiceVideo');
+        const canvas = document.getElementById('practiceCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        if (video.videoWidth && video.videoHeight) {
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(results.image, 0, 0, canvas.width, canvas.height);
+            
+            // If hands detected and we have a selected letter
+            if (results.multiHandLandmarks && results.multiHandLandmarks.length > 0 && practiceLetter) {
+                const landmarks = results.multiHandLandmarks[0];
+                // Draw hand connections (original style)
+                if (typeof drawConnectors === 'function' && typeof HAND_CONNECTIONS !== 'undefined') {
+                    drawConnectors(ctx, landmarks, HAND_CONNECTIONS, { color: '#3b4cca', lineWidth: 3 });
+                    drawLandmarks(ctx, landmarks, { color: '#f59e0b', lineWidth: 2, radius: 4 });
+                }
+                
+                // GET ACCURACY BASED ON THE LETTER THE USER SELECTED
+                const accuracy = analyzeHandShapeForLetter(landmarks, practiceLetter);
+                
+                // NEW RULE: Accuracy >= 50% -> CORRECT, <50% -> INCORRECT
+                if (accuracy >= 50) {
+                    updatePracticeFeedback('correct', `Excellent! Correct sign for ${practiceLetter} (${accuracy}% accuracy)`, accuracy);
+                    // Add motivation points
+                    let points = localStorage.getItem('iaPoints') || 0;
+                    points = parseInt(points) + 10;
+                    localStorage.setItem('iaPoints', points);
+                } else {
+                    updatePracticeFeedback('incorrect', `The sign does not match ${practiceLetter}. Accuracy: ${accuracy}% (minimum 50%). Keep practicing.`, accuracy);
+                }
+            } 
+            else if (!practiceLetter) {
+                updatePracticeFeedback('waiting', 'Select a letter first', 0);
+            } 
+            else {
+                // No hands visible
+                updatePracticeFeedback('waiting', '🖐️ Hand not detected. Place your hand in front of the camera', 0);
+            }
+        }
+    }
+
+    // ============================================================
+    // START CAMERA AND MEDIAPIPE
+    // ============================================================
+    function startPracticeCamera() {
+        if (isCameraRunning) return;
+        const video = document.getElementById('practiceVideo');
+        const canvas = document.getElementById('practiceCanvas');
+        document.getElementById('cameraOverlay').style.display = 'none';
+
+        handsInstance = new Hands({ locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}` });
+        handsInstance.setOptions({ 
+            maxNumHands: 1, 
+            modelComplexity: 1, 
+            minDetectionConfidence: 0.5, 
+            minTrackingConfidence: 0.5 
+        });
+        
+        handsInstance.onResults(onMediaPipeResults);
+        
+        cameraInstance = new Camera(video, {
+            onFrame: async () => { 
+                if (handsInstance && video && video.videoWidth > 0) {
+                    await handsInstance.send({ image: video }); 
+                }
+            },
+            width: 640, 
+            height: 480
+        });
+        cameraInstance.start().then(() => {
+            isCameraRunning = true;
+        }).catch(err => {
+            console.error("Error starting camera:", err);
+            updatePracticeFeedback('incorrect', "Error accessing camera. Check permissions.", 0);
+        });
+    }
+
+    // Stop resources if needed
+    function stopCameraIfNeeded() {
+        if (cameraInstance) { 
+            cameraInstance.stop(); 
+            isCameraRunning = false; 
+        }
+        if (handsInstance) {
+            handsInstance.close();
+        }
+    }
+
+    window.addEventListener('beforeunload', () => stopCameraIfNeeded());
+    
+    // Initialize UI
+    document.addEventListener('DOMContentLoaded', () => {
+        renderPracticeSelect();
+    });
+</script>
+</body>
+</html>

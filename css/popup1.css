@@ -1,0 +1,485 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #E8E8E8;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.return-btn {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #4C4CFF;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    transition: opacity 0.3s ease;
+}
+
+.return-btn:hover {
+    opacity: 0.7;
+}
+
+.return-btn svg {
+    stroke: #4C4CFF;
+}
+
+.main-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 80px;
+}
+
+.form-wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: 30px;
+    position: relative;
+}
+
+.decorative-circles {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-top: 60px;
+}
+
+.circle {
+    width: 10px;
+    height: 10px;
+    border: 2px solid #F5A623;
+    border-radius: 50%;
+    background-color: transparent;
+}
+
+.form-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-title {
+    font-size: 28px;
+    font-weight: 600;
+    color: #4C4CFF;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    width: 320px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.input-label {
+    font-size: 11px;
+    font-weight: 500;
+    color: #4C4CFF;
+    text-transform: capitalize;
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-icon {
+    position: absolute;
+    left: 12px;
+    color: #999;
+    display: flex;
+    align-items: center;
+}
+
+.form-input {
+    width: 100%;
+    padding: 12px 40px 12px 40px;
+    border: 1.5px solid #4C4CFF;
+    border-radius: 8px;
+    font-size: 13px;
+    font-family: 'Poppins', sans-serif;
+    background-color: white;
+    outline: none;
+    transition: all 0.3s ease;
+    color: #333;
+}
+
+.form-input::placeholder {
+    color: #BBB;
+}
+
+.form-input:focus {
+    border-color: #3333CC;
+    box-shadow: 0 0 0 3px rgba(76, 76, 255, 0.15);
+}
+
+.toggle-password {
+    position: absolute;
+    right: 12px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #999;
+    display: flex;
+    align-items: center;
+    padding: 0;
+    transition: color 0.3s ease;
+}
+
+.toggle-password:hover {
+    color: #666;
+}
+
+.eye-icon,
+.eye-off-icon {
+    display: block;
+}
+
+.eye-icon.hidden,
+.eye-off-icon.hidden {
+    display: none;
+}
+
+.create-account-btn {
+    background-color: #4C4CFF;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 30px;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+    align-self: center;
+}
+
+.create-account-btn:hover {
+    background-color: #3333CC;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(76, 76, 255, 0.4);
+}
+
+.create-account-btn:active {
+    transform: translateY(0);
+}
+
+.decorative-arrows {
+    position: absolute;
+    bottom: -20px;
+    right: -60px;
+    display: flex;
+    gap: 5px;
+}
+
+.arrow {
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 10px solid #F5A623;
+    transform: rotate(-90deg);
+}
+
+@media (max-width: 500px) {
+    .form-wrapper {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .decorative-circles {
+        flex-direction: row;
+        padding-top: 0;
+    }
+
+    .decorative-arrows {
+        position: static;
+        margin-top: 20px;
+    }
+
+    .register-form {
+        width: 280px;
+    }
+
+    .return-btn {
+        top: 15px;
+        left: 15px;
+    }
+}
+
+
+.form-input.error {
+    border-color: #ff4444;
+    box-shadow: 0 0 0 3px rgba(255, 68, 68, 0.15);
+}
+
+.error-message {
+    font-size: 10px;
+    color: #ff4444;
+    margin-top: 2px;
+    display: none;
+}
+
+.error-message.show {
+    display: block;
+}
+
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.payment-modal {
+    background-color: white;
+    border-radius: 16px;
+    padding: 30px;
+    width: 90%;
+    max-width: 420px;
+    position: relative;
+    transform: scale(0.8) translateY(20px);
+    opacity: 0;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+                opacity 0.3s ease;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.modal-overlay.active .payment-modal {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.modal-title {
+    font-size: 22px;
+    font-weight: 600;
+    color: #333;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #999;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.close-btn:hover {
+    color: #333;
+    transform: rotate(90deg);
+}
+
+.payment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.payment-icon {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.payment-icon svg {
+    color: #4C4CFF;
+}
+
+.card-row {
+    display: flex;
+    gap: 12px;
+}
+
+.card-row .input-group {
+    flex: 1;
+}
+
+.pay-btn {
+    background: linear-gradient(135deg, #4C4CFF 0%, #3333CC 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 14px 30px;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.pay-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(76, 76, 255, 0.4);
+}
+
+.pay-btn:active {
+    transform: translateY(0);
+}
+
+.pay-btn.processing {
+    pointer-events: none;
+    opacity: 0.8;
+}
+
+.spinner {
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    display: none;
+}
+
+.pay-btn.processing .spinner {
+    display: block;
+}
+
+.pay-btn.processing .btn-text {
+    display: none;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+
+.success-message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    background: white;
+    padding: 40px;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    z-index: 2000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.success-message.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.success-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #4C4CFF 0%, #3333CC 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    animation: scaleIn 0.5s ease;
+}
+
+@keyframes scaleIn {
+    0% { transform: scale(0); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+.success-icon svg {
+    color: white;
+    width: 40px;
+    height: 40px;
+}
+
+.success-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.success-text {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 25px;
+}
+
+.success-btn {
+    background-color: #4C4CFF;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 30px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.success-btn:hover {
+    background-color: #F5A623;
+}
+
+
+@media (max-width: 500px) {
+    .payment-modal {
+        padding: 20px;
+    }
+
+    .card-row {
+        flex-direction: column;
+        gap: 16px;
+    }
+}

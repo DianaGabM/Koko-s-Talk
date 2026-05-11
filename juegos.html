@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Koko's Talk - Game Mode | Learn LESSA by Playing</title>
+    
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="css/juegos.css">
+
+</head>
+<body>
+
+<a href="javascript:history.back()" class="return-btn">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m15 18-6-6 6-6"/>
+    </svg>
+    <span>return</span>
+</a>
+
+<section id="games" class="section">
+    <div class="main-container">
+        <div class="shape-left"></div>
+        <div class="shape-right"></div>
+        <div class="shape-bottom"></div>
+        
+        <h1 class="main-title">
+            Game <span class="highlight">Mode</span>
+        </h1>
+        <p style="color: #666; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto;">
+            Learn LESSA in a fun way with these interactive games
+        </p>
+
+        <div class="grid-3" style="align-items: stretch;">
+            <!-- Game 1: Guess the Letter -->
+            <div class="game-card">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <div style="width: 50px; height: 50px; background: #dbeafe; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #3b4cca; font-size: 24px;">
+                            <i class="fas fa-question"></i>
+                        </div>
+                        <div>
+                            <h3 style="color: #3b4cca; font-size: 20px;">Guess the Letter</h3>
+                            <p style="color: #666; font-size: 14px;">Identify the correct sign</p>
+                        </div>
+                    </div>
+                    <span style="background: #f59e0b; color: white; padding: 5px 15px; border-radius: 20px; font-weight: bold; font-size: 14px;" id="game1Score">0 pts</span>
+                </div>
+
+                <div id="game1Display" style="background: #f3f4f6; border-radius: 20px; min-height: 220px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; border: 3px dashed #f59e0b; flex-direction: column; gap: 10px; padding: 20px;">
+                    <img id="game1SignImage" class="sign-image" src="" alt="Sign" style="display: none;">
+                    <div id="game1LetterText" style="font-size: 80px; font-weight: 800; color: #3b4cca;">?</div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 20px;" id="game1Options"></div>
+
+                <button onclick="startGame1()" class="btn-primary w-full">
+                    <i class="fas fa-play"></i> Start Game
+                </button>
+            </div>
+
+            <!-- Game 2: Spell Your Name -->
+            <div class="game-card" style="grid-column: span 2;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <div style="width: 50px; height: 50px; background: #fed7aa; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #ea580c; font-size: 24px;">
+                            <i class="fas fa-signature"></i>
+                        </div>
+                        <div>
+                            <h3 style="color: #3b4cca; font-size: 20px;">Spell Your Name</h3>
+                            <p style="color: #666; font-size: 14px;">Practice signing letter by letter</p>
+                        </div>
+                    </div>
+                    <span style="background: #f59e0b; color: white; padding: 5px 15px; border-radius: 20px; font-weight: bold; font-size: 14px;" id="game2Score">0 pts</span>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                    <div>
+                        <label style="display: block; color: #3b4cca; font-weight: 600; margin-bottom: 10px;">Write your name:</label>
+                        <input type="text" id="nameInput" placeholder="Ex: Maria" maxlength="8" oninput="updateNameDisplay()" 
+                               style="width: 100%; padding: 15px 20px; border: 2px solid #f59e0b; border-radius: 15px; font-size: 18px; text-transform: uppercase; color: #3b4cca; font-weight: 600;">
+                        
+                        <div id="nameLetters" style="display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; min-height: 60px; padding: 15px; background: #f3f4f6; border-radius: 15px; border: 2px dashed #cbd5e1;">
+                            <span style="color: #94a3b8; font-size: 14px;">Letters will appear here...</span>
+                        </div>
+
+                        <div style="margin-top: 15px; display: flex; justify-content: space-between; color: #666; font-size: 14px;">
+                            <span>Progress: <span id="nameProgress" style="color: #f59e0b; font-weight: bold;">0/0</span></span>
+                            <span id="nameStatus" style="font-weight: 600;"></span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="camera-container" style="height: 250px; position: relative;">
+                            <video id="game2Video" style="width: 100%; height: 100%; object-fit: cover;" playsinline></video>
+                            <canvas id="game2Canvas" style="position: absolute; inset: 0; width: 100%; height: 100%;"></canvas>
+                            <div id="feedbackDisplay" class="recognition-feedback" style="display: none;">
+                                <span id="feedbackText">Waiting for sign...</span>
+                            </div>
+                            <div id="game2Overlay" class="camera-overlay">
+                                <button onclick="startGame2Camera()" class="btn-primary">
+                                    <i class="fas fa-camera"></i> Activate Camera
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="wave-top">
+        <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+        </svg>
+    </div>
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h4>Koko's Talk</h4>
+                <p>Transforming lives through inclusive communication. Learn LESSA dynamically and professionally.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">LESSA Guide</a></li>
+                    <li><a href="#">Community</a></li>
+                    <li><a href="#">Help Center</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Contact</h4>
+                <ul>
+                    <li><a href="#"><i class="fas fa-envelope"></i> info@kokostalk.com</a></li>
+                    <li><a href="#"><i class="fas fa-phone"></i> +503 2222-3333</a></li>
+                    <li><a href="#"><i class="fas fa-map-marker-alt"></i> San Salvador, El Salvador</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Koko's Talk Group. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<script src="JS/juegos.js"></script>
+
+</body>
+</html>

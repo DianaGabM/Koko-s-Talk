@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kokos Talk - Salvadoran Sign Language Dictionary</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/Dic.css">
+</head>
+<body>
+
+<div class="top-bar">
+    <a href="javascript:history.back()" class="return-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m15 18-6-6 6-6"/>
+        </svg>
+        <span>return</span>
+    </a>
+    
+    <div class="header-stats">
+        <div class="stat-badge blue">
+            <span class="stat-number" id="total-words">0</span>
+            <span class="stat-label">words</span>
+        </div>
+    </div>
+</div>
+
+<div class="app-layout">
+    <main class="panel-main">
+        
+        <div class="main-container" style="padding-top: 20px;">
+            <div class="shape-left"></div>
+            <div class="shape-right"></div>
+            <div class="shape-bottom"></div>
+            
+            <h1 class="main-title">
+                Dictionary
+                <span class="highlight">LESSA</span>
+            </h1>
+            <p style="color: #666; margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto;">
+                Explore and learn words in Salvadoran Sign Language
+            </p>
+        </div>
+
+        <div class="search-section">
+            <div class="search-wrapper">
+                <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                    <circle cx="11" cy="11" r="8"/>
+                    <path d="m21 21-4.35-4.35"/>
+                </svg>
+                <input type="text" class="search-input" id="search-input" placeholder="Search word..." autocomplete="off">
+                <button class="search-clear" id="search-clear">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <line x1="18" y1="6" x2="6" y2="18"/>
+                        <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <div class="filters-bar" id="filters-bar">
+            <button class="filter-pill active" data-category="all">All</button>
+            <button class="filter-pill" data-category="Saludos y Expresiones">Greetings and Expressions</button>
+            <button class="filter-pill" data-category="Familia">Family</button>
+            <button class="filter-pill" data-category="Comida y Bebida">Food and Drink</button>
+            <button class="filter-pill" data-category="Hogar y Lugares">Home and Places</button>
+            <button class="filter-pill" data-category="Acciones">Actions</button>
+            <button class="filter-pill" data-category="Emociones y Estados">Emotions and States</button>
+            <button class="filter-pill" data-category="Números">Numbers</button>
+            <button class="filter-pill" data-category="Personas y Sociedad">People and Society</button>
+            <button class="filter-pill" data-category="Otros Útiles">Other Useful Words</button>
+        </div>
+
+        <div class="results-bar">
+            <span class="results-count" id="results-count">0</span>
+            <span class="results-label">words found</span>
+        </div>
+
+        <div class="cards-grid" id="cards-grid"></div>
+        <div class="empty-state" id="empty-state">
+            <div class="empty-icon">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <circle cx="11" cy="11" r="8"/>
+                    <path d="m21 21-4.35-4.35"/>
+                    <line x1="8" y1="8" x2="14" y2="14"/>
+                    <line x1="14" y1="8" x2="8" y2="14"/>
+                </svg>
+            </div>
+            <h3>No words found</h3>
+            <p>Try another word or filter</p>
+        </div>
+    </main>
+</div>
+
+<footer class="footer">
+    <div class="wave-top">
+        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+        </svg>
+    </div>
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h4>Koko's Talk</h4>
+                <p>Transforming lives through inclusive communication. Learn LESSA dynamically and professionally.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">LESSA Guide</a></li>
+                    <li><a href="#">Community</a></li>
+                    <li><a href="#">Help Center</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Contact</h4>
+                <ul>
+                    <li><a href="#"><i class="fas fa-envelope"></i> info@kokostalk.com</a></li>
+                    <li><a href="#"><i class="fas fa-phone"></i> +503 2222-3333</a></li>
+                    <li><a href="#"><i class="fas fa-map-marker-alt"></i> San Salvador, El Salvador</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Koko's Talk Group. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<script src="JS/Dic.js"></script>
+
+</body>
+</html>
