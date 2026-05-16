@@ -35,34 +35,15 @@
             backdrop-filter: blur(8px);
             transition: all 0.3s ease;
         }
-        .status-overlay.waiting {
-            background-color: rgba(255, 255, 255, 0.95);
-            color: #666;
-            border: 2px solid #e5e7eb;
-        }
-        .status-overlay.correct {
-            background-color: rgba(34, 197, 94, 0.95);
-            color: white;
-            border: 2px solid #22c55e;
-        }
-        .status-overlay.incorrect {
-            background-color: rgba(239, 68, 68, 0.95);
-            color: white;
-            border: 2px solid #ef4444;
-        }
-        #accuracyDisplay { display: none !important; }
+        .status-overlay.waiting  { background-color:rgba(255,255,255,0.95); color:#666;  border:2px solid #e5e7eb; }
+        .status-overlay.correct  { background-color:rgba(34,197,94,0.95);  color:white; border:2px solid #22c55e; }
+        .status-overlay.incorrect{ background-color:rgba(239,68,68,0.95);  color:white; border:2px solid #ef4444; }
+        #accuracyDisplay { display:none !important; }
         .orientation-debug {
-            position: absolute;
-            bottom: 10px;
-            left: 10px;
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 10px;
-            font-family: monospace;
-            z-index: 10;
-            pointer-events: none;
+            position:absolute; bottom:10px; left:10px;
+            background:rgba(0,0,0,0.7); color:white;
+            padding:4px 8px; border-radius:4px;
+            font-size:10px; font-family:monospace; z-index:10; pointer-events:none;
         }
     </style>
 </head>
@@ -72,7 +53,7 @@
     <a href="diccinario.html" class="return-btn">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="m15 18-6-6 6-6" />
+            <path d="m15 18-6-6 6-6"/>
         </svg>
         <span>return</span>
     </a>
@@ -83,44 +64,40 @@
             <div class="shape-right"></div>
             <div class="shape-bottom"></div>
 
-            <h1 class="main-title">
-                AI Practice<br>
-                <span class="highlight">Learn each letter</span>
-            </h1>
-            <p style="color: #666; margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto; font-size: 18px;">
+            <h1 class="main-title">AI Practice<br><span class="highlight">Learn each letter</span></h1>
+            <p style="color:#666;margin-bottom:30px;max-width:600px;margin-left:auto;margin-right:auto;font-size:18px;">
                 Activate your camera, select a letter and show the sign. The artificial intelligence will analyze your hand in real time.
             </p>
 
-            <div class="grid-3" style="align-items: start;">
+            <div class="grid-3" style="align-items:start;">
                 <div class="flex flex-col gap-4">
                     <div class="game-card">
-                        <h3 style="color: #3b4cca; margin-bottom: 20px; font-size: 24px;">
-                            <i class="fas fa-hand-point-up" style="color: #f59e0b; margin-right: 10px;"></i>
-                            Select a Letter
+                        <h3 style="color:#3b4cca;margin-bottom:20px;font-size:24px;">
+                            <i class="fas fa-hand-point-up" style="color:#f59e0b;margin-right:10px;"></i>Select a Letter
                         </h3>
-                        <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 20px;" id="practiceQuickSelect"></div>
+                        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:20px;" id="practiceQuickSelect"></div>
                         <select id="practiceSelect" onchange="setPracticeLetter(this.value)">
                             <option value="">Select letter...</option>
                         </select>
                     </div>
-                    <div class="game-card" style="border-color: #3b4cca;">
-                        <h4 style="color: #3b4cca; margin-bottom: 15px;">Target Letter</h4>
-                        <div style="text-align: center;">
-                            <span id="targetLetter" style="font-size: 48px; font-weight: 800; color: #f59e0b;">-</span>
+                    <div class="game-card" style="border-color:#3b4cca;">
+                        <h4 style="color:#3b4cca;margin-bottom:15px;">Target Letter</h4>
+                        <div style="text-align:center;">
+                            <span id="targetLetter" style="font-size:48px;font-weight:800;color:#f59e0b;">-</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="flex flex-col gap-4" style="grid-column: span 2;">
-                    <div class="camera-container" style="height: 400px; position: relative;">
-                        <video id="practiceVideo" style="width: 100%; height: 100%; object-fit: cover;" playsinline></video>
-                        <canvas id="practiceCanvas" style="position: absolute; inset: 0; width: 100%; height: 100%;"></canvas>
+                <div class="flex flex-col gap-4" style="grid-column:span 2;">
+                    <div class="camera-container" style="height:400px;position:relative;">
+                        <video id="practiceVideo" style="width:100%;height:100%;object-fit:cover;" playsinline></video>
+                        <canvas id="practiceCanvas" style="position:absolute;inset:0;width:100%;height:100%;"></canvas>
                         <div id="statusOverlay" class="status-overlay waiting">
-                            <p style="margin: 0;">Select a letter and activate the camera to start</p>
+                            <p style="margin:0;">Select a letter and activate the camera to start</p>
                         </div>
                         <div id="cameraOverlay" class="camera-overlay">
-                            <i class="fas fa-camera" style="font-size: 64px; color: #f59e0b; margin-bottom: 20px;"></i>
-                            <h3 style="font-size: 28px; margin-bottom: 10px;">Camera Off</h3>
+                            <i class="fas fa-camera" style="font-size:64px;color:#f59e0b;margin-bottom:20px;"></i>
+                            <h3 style="font-size:28px;margin-bottom:10px;">Camera Off</h3>
                             <button onclick="startPracticeCamera()" class="btn-primary">
                                 <i class="fas fa-play"></i> Start Camera
                             </button>
@@ -130,12 +107,12 @@
                     </div>
 
                     <div id="letterGuide" class="game-card hidden-section">
-                        <div style="display: flex; gap: 30px; align-items: center; flex-wrap: wrap;">
+                        <div style="display:flex;gap:30px;align-items:center;flex-wrap:wrap;">
                             <div id="guideLetter">A</div>
-                            <div style="flex: 1;">
-                                <h4 style="color: #3b4cca; margin-bottom: 10px; font-size: 20px;">How to make this sign:</h4>
-                                <p id="guideDescription" style="color: #666; line-height: 1.6;"></p>
-                                <div style="display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap;">
+                            <div style="flex:1;">
+                                <h4 style="color:#3b4cca;margin-bottom:10px;font-size:20px;">How to make this sign:</h4>
+                                <p id="guideDescription" style="color:#666;line-height:1.6;"></p>
+                                <div style="display:flex;gap:10px;margin-top:10px;flex-wrap:wrap;">
                                     <span id="guideLevel"></span>
                                     <span id="guideExample"></span>
                                 </div>
@@ -168,10 +145,8 @@
                 <div class="footer-column">
                     <h4>Resources</h4>
                     <ul>
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">LESSA Guide</a></li>
-                        <li><a href="#">Community</a></li>
-                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Blog</a></li><li><a href="#">LESSA Guide</a></li>
+                        <li><a href="#">Community</a></li><li><a href="#">Help Center</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
@@ -183,58 +158,54 @@
                     </ul>
                 </div>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2026 Koko's Talk Group. All rights reserved.</p>
-            </div>
+            <div class="footer-bottom"><p>&copy; 2026 Koko's Talk Group. All rights reserved.</p></div>
         </div>
     </footer>
 
     <script>
     // ============================================================
-    // COMPLETE LESSA ALPHABET
+    // LESSA ALPHABET
     // ============================================================
     const lessaAlphabet = {
-        'A': { description: "Close your fist with your thumb extended to the side.", example: "Avocado", level: "Basic" },
-        'B': { description: "Open hand, fingers together, thumb bent.", example: "Boat", level: "Basic" },
-        'C': { description: "Form a 'C' by curving your fingers and thumb.", example: "House", level: "Basic" },
-        'D': { description: "Index finger up, rest in fist.", example: "Finger", level: "Basic" },
-        'E': { description: "All fingers bent toward the palm.", example: "Elephant", level: "Basic" },
-        'F': { description: "Index finger and thumb forming a circle.", example: "Photo", level: "Basic" },
-        'G': { description: "Index finger forward, thumb up.", example: "Cat", level: "Basic" },
-        'H': { description: "Index and middle fingers separated horizontally.", example: "Leaf", level: "Basic" },
-        'I': { description: "Pinky finger extended.", example: "Church", level: "Basic" },
-        'J': { description: "Pinky draws a J in the air.", example: "Toy", level: "Intermediate" },
-        'K': { description: "Index and middle in V, thumb in the middle pointing UP.", example: "Kilo", level: "Intermediate" },
-        'L': { description: "Index up, thumb out.", example: "Moon", level: "Intermediate" },
-        'M': { description: "Three fingers over thumb.", example: "Mom", level: "Intermediate" },
-        'N': { description: "Two fingers bent over thumb.", example: "Cloud", level: "Intermediate" },
-        'O': { description: "Circle with all fingers.", example: "Eye", level: "Intermediate" },
-        'P': { description: "K inverted downward (fingers pointing DOWN).", example: "Dad", level: "Intermediate" },
-        'Q': { description: "Pinch downward.", example: "Cheese", level: "Intermediate" },
-        'R': { description: "Index and middle fingers crossed.", example: "Mouse", level: "Intermediate" },
-        'S': { description: "Closed fist.", example: "Sun", level: "Advanced" },
-        'T': { description: "Thumb inserted between index and middle finger.", example: "Cup", level: "Advanced" },
-        'U': { description: "Two fingers together upward.", example: "Grape", level: "Advanced" },
-        'V': { description: "V with two fingers.", example: "Cow", level: "Advanced" },
-        'W': { description: "Three fingers extended.", example: "Waffle", level: "Advanced" },
-        'X': { description: "Index finger hooked.", example: "Xylophone", level: "Advanced" },
-        'Y': { description: "Thumb and pinky extended.", example: "Yoyo", level: "Advanced" },
-        'Z': { description: "Index finger draws a Z.", example: "Shoe", level: "Advanced" }
+        'A':{ description:"Close your fist with your thumb extended to the side.", example:"Avocado", level:"Basic" },
+        'B':{ description:"Open hand, fingers together, thumb bent inward.", example:"Boat", level:"Basic" },
+        'C':{ description:"Form a C by curving all fingers and thumb — open gap.", example:"House", level:"Basic" },
+        'D':{ description:"Index finger pointing up, rest of fingers curled in a fist.", example:"Finger", level:"Basic" },
+        'E':{ description:"All fingers curled tightly toward the palm, thumb tucked in.", example:"Elephant", level:"Basic" },
+        'F':{ description:"Thumb and index pinch; middle, ring and pinky extend up.", example:"Photo", level:"Basic" },
+        'G':{ description:"Fist with index pointing sideways — hand oriented horizontally.", example:"Cat", level:"Basic" },
+        'H':{ description:"Index and middle extended horizontally to the side.", example:"Leaf", level:"Basic" },
+        'I':{ description:"Only the pinky extended upward, all others curled.", example:"Church", level:"Basic" },
+        'J':{ description:"Pinky up like I, then draw a J in the air.", example:"Toy", level:"Intermediate" },
+        'K':{ description:"Index and middle pointing UP with thumb between them.", example:"Kilo", level:"Intermediate" },
+        'L':{ description:"Index pointing up + thumb pointing to the side (L shape).", example:"Moon", level:"Intermediate" },
+        'M':{ description:"Closed fist with index, middle and ring folded over the thumb.", example:"Mom", level:"Intermediate" },
+        'N':{ description:"Closed fist with index and middle folded over the thumb.", example:"Cloud", level:"Intermediate" },
+        'O':{ description:"All fingers curved to form a circle with the thumb.", example:"Eye", level:"Intermediate" },
+        'P':{ description:"Like K but fingers pointing DOWN toward the floor.", example:"Dad", level:"Intermediate" },
+        'Q':{ description:"Hand pointing down, thumb and index pinching downward.", example:"Cheese", level:"Intermediate" },
+        'R':{ description:"Index and middle crossed and pointing up.", example:"Mouse", level:"Intermediate" },
+        'S':{ description:"Closed fist with thumb resting over the fingers.", example:"Sun", level:"Advanced" },
+        'T':{ description:"Thumb tip pushed up between index and middle finger — all others curled.", example:"Cup", level:"Advanced" },
+        'U':{ description:"Index and middle together pointing straight up.", example:"Grape", level:"Advanced" },
+        'V':{ description:"Index and middle spread apart in a V shape pointing up.", example:"Cow", level:"Advanced" },
+        'W':{ description:"Index, middle and ring extended and spread — pinky closed.", example:"Waffle", level:"Advanced" },
+        'X':{ description:"Index finger hooked (half-bent), rest of fingers closed.", example:"Xylophone", level:"Advanced" },
+        'Y':{ description:"Thumb out to the side and pinky pointing up — other fingers curled.", example:"Yoyo", level:"Advanced" },
+        'Z':{ description:"Index finger pointing up; draw a Z in the air.", example:"Shoe", level:"Advanced" }
     };
 
-    let practiceLetter = null;
-    let handsInstance = null;
-    let cameraInstance = null;
+    let practiceLetter  = null;
+    let handsInstance   = null;
+    let cameraInstance  = null;
     let isCameraRunning = false;
 
-    // ============================================================
-    // RENDER SELECTORS
-    // ============================================================
+    // ── UI ───────────────────────────────────────────────────────
     function renderPracticeSelect() {
         const select = document.getElementById('practiceSelect');
-        const quick = document.getElementById('practiceQuickSelect');
+        const quick  = document.getElementById('practiceQuickSelect');
         select.innerHTML = '<option value="">Select letter...</option>';
-        quick.innerHTML = '';
+        quick.innerHTML  = '';
         Object.keys(lessaAlphabet).forEach(letter => {
             const opt = document.createElement('option');
             opt.value = letter;
@@ -242,8 +213,8 @@
             select.appendChild(opt);
             const btn = document.createElement('button');
             btn.textContent = letter;
-            btn.className = 'btn-quick';
-            btn.onclick = () => setPracticeLetter(letter);
+            btn.className   = 'btn-quick';
+            btn.onclick     = () => setPracticeLetter(letter);
             quick.appendChild(btn);
         });
     }
@@ -251,652 +222,475 @@
     function setPracticeLetter(letter) {
         if (!letter) return;
         practiceLetter = letter;
-        document.getElementById('targetLetter').innerText = letter;
-        document.getElementById('practiceSelect').value = letter;
-        const data = lessaAlphabet[letter];
-        const guideDiv = document.getElementById('letterGuide');
-        guideDiv.classList.remove('hidden-section');
-        guideDiv.style.display = 'block';
-        document.getElementById('guideLetter').innerText = letter;
-        document.getElementById('guideDescription').innerText = data.description;
-        document.getElementById('guideLevel').innerText = `Level ${data.level}`;
-        document.getElementById('guideExample').innerText = `Example: ${data.example}`;
+        document.getElementById('targetLetter').innerText    = letter;
+        document.getElementById('practiceSelect').value      = letter;
+        const d = lessaAlphabet[letter];
+        const g = document.getElementById('letterGuide');
+        g.classList.remove('hidden-section');
+        g.style.display = 'block';
+        document.getElementById('guideLetter').innerText      = letter;
+        document.getElementById('guideDescription').innerText = d.description;
+        document.getElementById('guideLevel').innerText       = `Level ${d.level}`;
+        document.getElementById('guideExample').innerText     = `Example: ${d.example}`;
         updatePracticeFeedback('waiting', `📖 Practice the letter ${letter}. Show the sign in front of the camera`, 0);
     }
 
     function updatePracticeFeedback(status, message, accuracy = 0) {
-        const overlay = document.getElementById('statusOverlay');
-        overlay.classList.remove('waiting', 'correct', 'incorrect');
+        const o = document.getElementById('statusOverlay');
+        o.classList.remove('waiting','correct','incorrect');
         if (status === 'correct') {
-            overlay.classList.add('correct');
-            overlay.innerHTML = `<p style="margin: 0;"><i class="fas fa-check-circle"></i> ${message}</p>`;
+            o.classList.add('correct');
+            o.innerHTML = `<p style="margin:0;"><i class="fas fa-check-circle"></i> ${message}</p>`;
         } else if (status === 'incorrect') {
-            overlay.classList.add('incorrect');
-            overlay.innerHTML = `<p style="margin: 0;"><i class="fas fa-times-circle"></i> ${message}</p>`;
+            o.classList.add('incorrect');
+            o.innerHTML = `<p style="margin:0;"><i class="fas fa-times-circle"></i> ${message}</p>`;
         } else {
-            overlay.classList.add('waiting');
-            overlay.innerHTML = `<p style="margin: 0;">${message}</p>`;
+            o.classList.add('waiting');
+            o.innerHTML = `<p style="margin:0;">${message}</p>`;
         }
     }
 
-    // ============================================================
-    // HAND ORIENTATION (kept for debug display)
-    // ============================================================
-    function detectHandOrientation(landmarks) {
-        const wrist = landmarks[0];
-        const middleTip = landmarks[12];
-        const dx = middleTip.x - wrist.x;
-        const dy = middleTip.y - wrist.y;
-        const absDx = Math.abs(dx);
-        const absDy = Math.abs(dy);
-        if (absDy > absDx * 1.1) return dy < 0 ? 'UP' : 'DOWN';
+    // ── orientation debug ────────────────────────────────────────
+    function detectHandOrientation(lm) {
+        const dx = lm[12].x - lm[0].x, dy = lm[12].y - lm[0].y;
+        if (Math.abs(dy) > Math.abs(dx)*1.1) return dy < 0 ? 'UP' : 'DOWN';
         return dx < 0 ? 'LEFT' : 'RIGHT';
     }
 
     // ============================================================
-    // CORE HELPERS
-    // Y axis: 0 = top, 1 = bottom → tip.y < mcp.y means finger points UP
+    // CORE HELPERS  (MediaPipe Y: 0=top, 1=bottom)
     // ============================================================
-
-    // True if finger tip is clearly ABOVE its MCP knuckle
-    function isFingerUp(tip, mcp, threshold = 0.05) {
-        return (mcp.y - tip.y) > threshold;
-    }
-
-    // True if finger tip has dropped below or near its PIP → curled
-    function isFingerCurled(tip, pip) {
-        return tip.y > pip.y - 0.02;
-    }
-
-    // True if finger tip is clearly BELOW its MCP → pointing down
-    function isFingerDown(tip, mcp, threshold = 0.05) {
-        return (tip.y - mcp.y) > threshold;
-    }
+    /** tip is clearly ABOVE its MCP (finger pointing up) */
+    function isUp(tip, mcp, thr=0.06)  { return (mcp.y - tip.y) > thr; }
+    /** tip is clearly BELOW its MCP (finger pointing down) */
+    function isDown(tip, mcp, thr=0.05){ return (tip.y - mcp.y) > thr; }
+    /** tip has dropped to/below PIP level → tightly curled */
+    function isCurl(tip, pip, thr=0.02){ return tip.y > pip.y - thr; }
 
     // ============================================================
     // FINGER CONFIGURATION
     // ============================================================
-    function getFingerConfiguration(landmarks) {
-        const wrist   = landmarks[0];
-        const thumbCmc = landmarks[1];
-        const thumbMcp = landmarks[2];
-        const thumbIp  = landmarks[3];
-        const thumbTip = landmarks[4];
-        const idxMcp  = landmarks[5];  const idxPip  = landmarks[6];
-        const idxDip  = landmarks[7];  const idxTip  = landmarks[8];
-        const midMcp  = landmarks[9];  const midPip  = landmarks[10];
-        const midDip  = landmarks[11]; const midTip  = landmarks[12];
-        const rngMcp  = landmarks[13]; const rngPip  = landmarks[14];
-        const rngDip  = landmarks[15]; const rngTip  = landmarks[16];
-        const pnkMcp  = landmarks[17]; const pnkPip  = landmarks[18];
-        const pnkDip  = landmarks[19]; const pnkTip  = landmarks[20];
+    function getFingerConfiguration(lm) {
+        // landmarks
+        const W=lm[0];
+        const tC=lm[1],tM=lm[2],tI=lm[3],tT=lm[4];          // thumb
+        const iM=lm[5],iP=lm[6],iD=lm[7],iT=lm[8];           // index
+        const mM=lm[9],mP=lm[10],mD=lm[11],mT=lm[12];        // middle
+        const rM=lm[13],rP=lm[14],rD=lm[15],rT=lm[16];       // ring
+        const pM=lm[17],pP=lm[18],pD=lm[19],pT=lm[20];       // pinky
 
-        // Extension: tip clearly above MCP (finger pointing UP)
-        const indexExtended  = isFingerUp(idxTip, idxMcp, 0.05);
-        const middleExtended = isFingerUp(midTip, midMcp, 0.05);
-        const ringExtended   = isFingerUp(rngTip, rngMcp, 0.05);
-        const pinkyExtended  = isFingerUp(pnkTip, pnkMcp, 0.05);
+        // extension (tip clearly above MCP)
+        const indexUp  = isUp(iT,iM,0.06);
+        const middleUp = isUp(mT,mM,0.06);
+        const ringUp   = isUp(rT,rM,0.06);
+        const pinkyUp  = isUp(pT,pM,0.06);
 
-        // Pointing down: tip clearly below MCP (e.g. P sign)
-        const indexDown  = isFingerDown(idxTip, idxMcp, 0.05);
-        const middleDown = isFingerDown(midTip, midMcp, 0.05);
+        // pointing down (tip clearly below MCP)
+        const indexDown  = isDown(iT,iM,0.05);
+        const middleDown = isDown(mT,mM,0.05);
 
-        // Curled: tip at or below PIP
-        const indexCurled  = isFingerCurled(idxTip, idxPip);
-        const middleCurled = isFingerCurled(midTip, midPip);
-        const ringCurled   = isFingerCurled(rngTip, rngPip);
-        const pinkyCurled  = isFingerCurled(pnkTip, pnkPip);
+        // curled (tip at or below PIP)
+        const indexCurled  = isCurl(iT,iP);
+        const middleCurled = isCurl(mT,mP);
+        const ringCurled   = isCurl(rT,rP);
+        const pinkyCurled  = isCurl(pT,pP);
 
-        // Thumb: extended if tip is far from CMC compared to IP
-        const thumbDistTip = Math.hypot(thumbTip.x - thumbCmc.x, thumbTip.y - thumbCmc.y);
-        const thumbDistIp  = Math.hypot(thumbIp.x  - thumbCmc.x, thumbIp.y  - thumbCmc.y);
-        const thumbExtended = thumbDistTip > thumbDistIp * 1.15;
-        // Thumb extended laterally (X displacement from MCP)
-        const thumbLateral = Math.abs(thumbTip.x - thumbMcp.x) > 0.05;
+        // thumb
+        const dTipC = Math.hypot(tT.x-tC.x, tT.y-tC.y);
+        const dIpC  = Math.hypot(tI.x-tC.x, tI.y-tC.y);
+        const thumbExtended = dTipC > dIpC * 1.18;
+        const thumbLateral  = Math.abs(tT.x - tM.x) > 0.055;
+        const thumbIdxDist  = Math.hypot(tT.x-iT.x, tT.y-iT.y);
+        const isPinch       = thumbIdxDist < 0.07;
 
-        // Hand general direction (using middle finger tip vs wrist)
-        const handDx = midTip.x - wrist.x;
-        const handDy = midTip.y - wrist.y;
-        const fingersPointingUp   = handDy < -0.08;
-        const fingersPointingDown = handDy >  0.08;
-        // Hand pointing sideways (more horizontal than vertical)
-        const fingersPointingSide = Math.abs(handDx) > Math.abs(handDy) * 1.1;
+        // hand direction (middle-tip vs wrist)
+        const hDx = mT.x-W.x, hDy = mT.y-W.y;
+        const handUp   = hDy < -0.08;
+        const handDown = hDy >  0.08;
+        const handSide = Math.abs(hDx) > Math.abs(hDy)*1.1;
 
-        // Pinch: thumb tip close to index tip
-        const thumbIndexDist = Math.hypot(thumbTip.x - idxTip.x, thumbTip.y - idxTip.y);
-        const isPinch = thumbIndexDist < 0.07;
-
-        // Separation between index and middle tips (V vs U distinction)
-        const idxMidSep = Math.abs(idxTip.x - midTip.x);
-
-        const extendedCount = [indexExtended, middleExtended, ringExtended, pinkyExtended].filter(Boolean).length;
+        const imSep    = Math.abs(iT.x - mT.x);
+        const extCount = [indexUp,middleUp,ringUp,pinkyUp].filter(Boolean).length;
 
         return {
-            wrist, thumbTip, thumbIp, thumbMcp, thumbCmc,
-            idxTip, idxPip, idxMcp,
-            midTip, midPip, midMcp,
-            rngTip, rngPip, rngMcp,
-            pnkTip, pnkPip, pnkMcp,
-            indexExtended, middleExtended, ringExtended, pinkyExtended, thumbExtended,
+            W, tT,tI,tM,tC, iT,iP,iM, mT,mP,mM, rT,rP,rM, pT,pP,pM,
+            indexExtended:indexUp, middleExtended:middleUp,
+            ringExtended:ringUp,   pinkyExtended:pinkyUp,
+            thumbExtended, thumbLateral,
             indexDown, middleDown,
             indexCurled, middleCurled, ringCurled, pinkyCurled,
-            thumbLateral,
-            thumbIndexDist, isPinch, idxMidSep,
-            fingersPointingUp, fingersPointingDown, fingersPointingSide,
-            extendedCount
+            thumbIndexDist:thumbIdxDist, isPinch, idxMidSep:imSep,
+            fingersPointingUp:handUp, fingersPointingDown:handDown, fingersPointingSide:handSide,
+            extendedCount:extCount
         };
     }
 
     // ============================================================
-    // K vs P: specialized (orientation-based)
+    // K vs P
     // ============================================================
-    function recognizeKorP(landmarks, targetLetter) {
-        const cfg = getFingerConfiguration(landmarks);
+    function recognizeKorP(lm, letter) {
+        const c = getFingerConfiguration(lm);
+        const dy = c.mT.y-c.W.y, dx = c.mT.x-c.W.x;
+        let ori;
+        if (Math.abs(dy)>Math.abs(dx)*1.1) ori = dy<0?'UP':'DOWN';
+        else ori = dx<0?'LEFT':'RIGHT';
 
-        // Raw deltas from wrist to middle tip
-        const dy = cfg.midTip.y - cfg.wrist.y;  // negative = pointing UP
-        const dx = cfg.midTip.x - cfg.wrist.x;
-        const absDy = Math.abs(dy);
-        const absDx = Math.abs(dx);
+        const iUp  = (c.iM.y-c.iT.y)>0.06, mUp  = (c.mM.y-c.mT.y)>0.06;
+        const iDwn = (c.iT.y-c.iM.y)>0.05, mDwn = (c.mT.y-c.mM.y)>0.05;
+        const rpClosed = !c.ringExtended && !c.pinkyExtended && c.ringCurled && c.pinkyCurled;
 
-        let orientation;
-        if (absDy > absDx * 1.1) orientation = dy < 0 ? 'UP' : 'DOWN';
-        else orientation = dx < 0 ? 'LEFT' : 'RIGHT';
-
-        // For K: index & middle tips are ABOVE their MCPs
-        const idxUp  = (cfg.idxMcp.y - cfg.idxTip.y) > 0.05;
-        const midUp  = (cfg.midMcp.y - cfg.midTip.y) > 0.05;
-        // For P: index & middle tips are BELOW their MCPs
-        const idxDwn = (cfg.idxTip.y - cfg.idxMcp.y) > 0.04;
-        const midDwn = (cfg.midTip.y - cfg.midMcp.y) > 0.04;
-
-        const ringPinkyClosed = !cfg.ringExtended && !cfg.pinkyExtended &&
-                                cfg.ringCurled && cfg.pinkyCurled;
-
-        if (targetLetter === 'K') {
-            const kFingers    = idxUp && midUp;
-            const kOrient     = orientation === 'UP' ||
-                                ((orientation === 'RIGHT' || orientation === 'LEFT') && dy < 0);
-            if (kFingers && kOrient && ringPinkyClosed && cfg.thumbExtended) return 93;
-            if (kFingers && kOrient && ringPinkyClosed)                       return 80;
-            if (kFingers && kOrient)                                           return 68;
-            if (kFingers && ringPinkyClosed)                                   return 58;
-            if (orientation === 'DOWN')                                        return 15;
-            return 30;
+        if (letter==='K') {
+            const kF = iUp&&mUp;
+            const kO = ori==='UP' || ((ori==='RIGHT'||ori==='LEFT') && dy<0);
+            if (kF&&kO&&rpClosed&&c.thumbExtended) return 93;
+            if (kF&&kO&&rpClosed)                   return 80;
+            if (kF&&kO)                              return 65;
+            if (kF&&rpClosed)                        return 55;
+            if (ori==='DOWN')                        return 10;
+            return 25;
         }
-
-        if (targetLetter === 'P') {
-            // P = wrist is ABOVE the finger tips (tips hang down)
-            const wristAboveTips = cfg.wrist.y < cfg.idxTip.y &&
-                                   cfg.wrist.y < cfg.midTip.y;
-            const pFingers = idxDwn && midDwn;
-            const pOrient  = orientation === 'DOWN' || wristAboveTips;
-
-            if (pFingers && pOrient && ringPinkyClosed && cfg.thumbExtended) return 93;
-            if (pFingers && pOrient && ringPinkyClosed)                       return 83;
-            if (pFingers && wristAboveTips)                                   return 72;
-            if (wristAboveTips && ringPinkyClosed)                            return 62;
-            if (orientation === 'UP')                                         return 15;
-            return 28;
+        if (letter==='P') {
+            const wA = c.W.y<c.iT.y && c.W.y<c.mT.y;
+            const pF = iDwn&&mDwn, pO = ori==='DOWN'||wA;
+            if (pF&&pO&&rpClosed&&c.thumbExtended) return 93;
+            if (pF&&pO&&rpClosed)                   return 82;
+            if (pF&&wA)                              return 70;
+            if (wA&&rpClosed)                        return 60;
+            if (ori==='UP')                          return 10;
+            return 25;
         }
-
         return 50;
     }
 
     // ============================================================
-    // MAIN RECOGNITION — all 26 letters
+    // MAIN RECOGNITION — 26 letters
     // ============================================================
-    function analyzeHandShapeForLetter(landmarks, targetLetter) {
-        if (!landmarks || landmarks.length < 21) return 0;
+    function analyzeHandShapeForLetter(lm, letter) {
+        if (!lm || lm.length < 21) return 0;
+        if (letter==='K'||letter==='P') return recognizeKorP(lm,letter);
+        const c = getFingerConfiguration(lm);
 
-        if (targetLetter === 'K' || targetLetter === 'P') {
-            return recognizeKorP(landmarks, targetLetter);
-        }
+        switch(letter) {
 
-        const cfg = getFingerConfiguration(landmarks);
-
-        switch (targetLetter) {
-
-        // ── A ────────────────────────────────────────────────────────
-        // Closed fist, thumb extended to the SIDE (not tucked in).
-        // All 4 fingers curled, thumb tip clearly lateral from its MCP.
+        // ── A ── Closed fist, thumb clearly LATERAL
         case 'A': {
-            const allCurled = cfg.indexCurled && cfg.middleCurled &&
-                              cfg.ringCurled  && cfg.pinkyCurled;
-            if (allCurled && cfg.thumbExtended) return 93;
-            if (allCurled && !cfg.thumbExtended) return 70;
-            if (cfg.extendedCount === 0 && cfg.thumbExtended) return 75;
-            if (cfg.extendedCount === 0) return 60;
-            return 15;
+            const allCurl = c.indexCurled&&c.middleCurled&&c.ringCurled&&c.pinkyCurled;
+            if (allCurl && c.thumbLateral)   return 93;
+            if (allCurl && c.thumbExtended)  return 72;
+            if (c.extendedCount===0 && c.thumbLateral) return 78;
+            if (c.extendedCount===0 && c.thumbExtended) return 62;
+            if (allCurl) return 52;
+            return 10;
         }
 
-        // ── B ────────────────────────────────────────────────────────
-        // All 4 fingers extended straight UP, thumb folded in.
+        // ── B ── All 4 fingers up, thumb folded IN (not lateral)
         case 'B': {
-            const allUp  = cfg.indexExtended && cfg.middleExtended &&
-                           cfg.ringExtended  && cfg.pinkyExtended;
-            const thumbIn = !cfg.thumbExtended;
-            if (allUp && thumbIn && cfg.fingersPointingUp) return 94;
-            if (allUp && thumbIn) return 82;
-            if (allUp) return 65;
-            if (cfg.extendedCount >= 3) return 40;
-            return 20;
+            const allUp  = c.indexExtended&&c.middleExtended&&c.ringExtended&&c.pinkyExtended;
+            const tIn    = !c.thumbExtended&&!c.thumbLateral;
+            if (allUp&&tIn&&c.fingersPointingUp) return 94;
+            if (allUp&&tIn)  return 82;
+            if (allUp)       return 62;
+            if (c.extendedCount>=3) return 35;
+            return 12;
         }
 
-        // ── C ────────────────────────────────────────────────────────
-        // Fingers partially curved (not fully up, not fully curled).
-        // Gap between thumb and index (not a pinch).
+        // ── C ── All fingers partially curved, open gap between thumb and index
         case 'C': {
-            const partialIndex  = !cfg.indexExtended  && !cfg.indexCurled;
-            const partialMiddle = !cfg.middleExtended && !cfg.middleCurled;
-            const partialRing   = !cfg.ringExtended   && !cfg.ringCurled;
-            const partialPinky  = !cfg.pinkyExtended  && !cfg.pinkyCurled;
-            const partialCount  = [partialIndex, partialMiddle, partialRing, partialPinky].filter(Boolean).length;
-            const cGap = cfg.thumbIndexDist > 0.08 && cfg.thumbIndexDist < 0.35;
-            if (partialCount >= 3 && cGap && !cfg.thumbExtended) return 90;
-            if (partialCount >= 2 && cGap) return 72;
-            if (cGap && cfg.extendedCount <= 2) return 55;
-            if (partialCount >= 3) return 50;
-            return 25;
+            const pI=!c.indexExtended&&!c.indexCurled,  pM=!c.middleExtended&&!c.middleCurled;
+            const pR=!c.ringExtended&&!c.ringCurled,     pP=!c.pinkyExtended&&!c.pinkyCurled;
+            const pCnt=[pI,pM,pR,pP].filter(Boolean).length;
+            const gap = c.thumbIndexDist>0.09 && c.thumbIndexDist<0.32;
+            if (pCnt>=3&&gap&&!c.thumbExtended) return 90;
+            if (pCnt>=3&&gap) return 74;
+            if (pCnt>=2&&gap) return 60;
+            if (gap&&c.extendedCount===0) return 50;
+            return 15;
         }
 
-        // ── D ────────────────────────────────────────────────────────
-        // Only index finger pointing UP, rest curled.
+        // ── D ── ONLY index up, rest tightly curled, tip above wrist
         case 'D': {
-            const onlyIndex  = cfg.indexExtended && !cfg.middleExtended &&
-                               !cfg.ringExtended && !cfg.pinkyExtended;
-            const restCurled = cfg.middleCurled && cfg.ringCurled && cfg.pinkyCurled;
-            const handUp     = cfg.fingersPointingUp || (cfg.idxTip.y < cfg.wrist.y);
-            if (onlyIndex && restCurled && handUp) return 95;
-            if (onlyIndex && restCurled) return 85;
-            if (onlyIndex) return 68;
-            return 20;
+            const only = c.indexExtended&&!c.middleExtended&&!c.ringExtended&&!c.pinkyExtended;
+            const curl = c.middleCurled&&c.ringCurled&&c.pinkyCurled;
+            const high = c.iT.y < c.W.y;
+            if (only&&curl&&high) return 95;
+            if (only&&curl)       return 85;
+            if (only&&high)       return 72;
+            if (only)             return 58;
+            return 12;
         }
 
-        // ── E ────────────────────────────────────────────────────────
-        // All fingers AND thumb curled tight toward palm.
+        // ── E ── ALL fingers + thumb curled tight, tips close to palm
         case 'E': {
-            const allCurled = cfg.indexCurled && cfg.middleCurled &&
-                              cfg.ringCurled  && cfg.pinkyCurled;
-            const thumbIn   = !cfg.thumbExtended;
-            const avgTipDist = (
-                Math.hypot(cfg.idxTip.x - cfg.wrist.x, cfg.idxTip.y - cfg.wrist.y) +
-                Math.hypot(cfg.midTip.x - cfg.wrist.x, cfg.midTip.y - cfg.wrist.y) +
-                Math.hypot(cfg.rngTip.x - cfg.wrist.x, cfg.rngTip.y - cfg.wrist.y) +
-                Math.hypot(cfg.pnkTip.x - cfg.wrist.x, cfg.pnkTip.y - cfg.wrist.y)
-            ) / 4;
-            if (allCurled && thumbIn && avgTipDist < 0.25) return 92;
-            if (allCurled && thumbIn) return 80;
-            if (allCurled) return 65;
-            if (cfg.extendedCount === 0 && !cfg.thumbExtended) return 68;
-            return 25;
+            const all  = c.indexCurled&&c.middleCurled&&c.ringCurled&&c.pinkyCurled;
+            const tIn  = !c.thumbExtended&&!c.thumbLateral;
+            const avg  = (Math.hypot(c.iT.x-c.W.x,c.iT.y-c.W.y)+Math.hypot(c.mT.x-c.W.x,c.mT.y-c.W.y)+
+                          Math.hypot(c.rT.x-c.W.x,c.rT.y-c.W.y)+Math.hypot(c.pT.x-c.W.x,c.pT.y-c.W.y))/4;
+            if (all&&tIn&&avg<0.24) return 92;
+            if (all&&tIn)           return 80;
+            if (all&&avg<0.24)      return 68;
+            if (all)                return 58;
+            return 15;
         }
 
-        // ── F ────────────────────────────────────────────────────────
-        // Thumb + index form a circle (pinch). Middle, ring, pinky extended UP.
+        // ── F ── Thumb+index pinch; middle+ring+pinky UP
         case 'F': {
-            const threeUp  = cfg.middleExtended && cfg.ringExtended && cfg.pinkyExtended;
-            const idxDown  = !cfg.indexExtended;
-            if (cfg.isPinch && threeUp && idxDown) return 94;
-            if (cfg.isPinch && threeUp) return 78;
-            if (cfg.isPinch && cfg.extendedCount >= 2) return 60;
-            if (cfg.isPinch) return 45;
-            return 20;
+            const threeUp = c.middleExtended&&c.ringExtended&&c.pinkyExtended;
+            if (c.isPinch&&threeUp&&!c.indexExtended) return 94;
+            if (c.isPinch&&threeUp)                   return 78;
+            if (c.isPinch&&c.extendedCount>=2)        return 58;
+            if (c.isPinch)                            return 42;
+            return 12;
         }
 
-        // ── G ────────────────────────────────────────────────────────
-        // IMAGE ANALYSIS: Fist with index pointing SIDEWAYS (horizontally).
-        // The hand itself is oriented LATERALLY (fingers point to the side).
-        // Key: wrist-to-midTip vector is mostly horizontal (|dx| > |dy|).
-        // Index tip is displaced in X from its MCP but NOT much in Y.
-        // Rest of fingers closed (curled).
-        // Thumb may or may not be visible — not a strong signal here.
+        // ── G ── Fist, index pointing SIDEWAYS; hand oriented laterally
         case 'G': {
-            const handDx = Math.abs(cfg.midTip.x - cfg.wrist.x);
-            const handDy = Math.abs(cfg.midTip.y - cfg.wrist.y);
-            const isLateral = handDx > handDy * 0.9; // hand pointing sideways
-
-            // Index lateral: tip moves in X more than in Y relative to its MCP
-            const idxDeltaX = Math.abs(cfg.idxTip.x - cfg.idxMcp.x);
-            const idxDeltaY = Math.abs(cfg.idxTip.y - cfg.idxMcp.y);
-            const idxLateral = idxDeltaX > 0.05 || (idxDeltaX > idxDeltaY * 0.8);
-
-            // Rest of fingers closed
-            const restCurled = cfg.middleCurled && cfg.ringCurled && cfg.pinkyCurled;
-            const restDown   = !cfg.middleExtended && !cfg.ringExtended && !cfg.pinkyExtended;
-
-            if (isLateral && idxLateral && restCurled) return 92;
-            if (isLateral && idxLateral && restDown)   return 80;
-            if (isLateral && restCurled)               return 68;
-            if (idxLateral && restCurled)              return 60;
-            // Penalize: if hand is pointing UP this is D or Z, not G
-            if (cfg.fingersPointingUp && !isLateral)   return 15;
-            return 22;
+            const hX=Math.abs(c.mT.x-c.W.x), hY=Math.abs(c.mT.y-c.W.y);
+            const lat = hX > hY*0.85;
+            const iX=Math.abs(c.iT.x-c.iM.x), iY=Math.abs(c.iT.y-c.iM.y);
+            const iSide = iX>0.05 || (iX>iY*0.75);
+            const rCurl = c.middleCurled&&c.ringCurled&&c.pinkyCurled;
+            const rDown = !c.middleExtended&&!c.ringExtended&&!c.pinkyExtended;
+            if (lat&&iSide&&rCurl) return 92;
+            if (lat&&iSide&&rDown) return 80;
+            if (lat&&rCurl)        return 65;
+            if (iSide&&rCurl)      return 58;
+            if (c.fingersPointingUp) return 10;
+            return 18;
         }
 
-        // ── H ────────────────────────────────────────────────────────
-        // IMAGE ANALYSIS: Index + middle extended and pointing HORIZONTALLY
-        // to the side. Hand oriented sideways. Ring + pinky closed.
-        // Key: the two extended fingers point laterally, not straight up.
+        // ── H ── Index+middle extended HORIZONTALLY; ring+pinky closed
         case 'H': {
-            const twoExtended = cfg.indexExtended && cfg.middleExtended;
-            const restClosed  = !cfg.ringExtended && !cfg.pinkyExtended;
-
-            // Are the two extended fingers pointing sideways?
-            // Their tips should be displaced more in X than in Y from MCP
-            const idxHoriz = Math.abs(cfg.idxTip.x - cfg.idxMcp.x) >
-                             Math.abs(cfg.idxTip.y - cfg.idxMcp.y) * 0.7;
-            const midHoriz = Math.abs(cfg.midTip.x - cfg.midMcp.x) >
-                             Math.abs(cfg.midTip.y - cfg.midMcp.y) * 0.7;
-            const isHoriz  = idxHoriz && midHoriz;
-
-            // Also detect vertical H (some signers hold it up)
-            const isVert   = cfg.fingersPointingUp || cfg.indexExtended;
-
-            if (twoExtended && restClosed && isHoriz) return 92;
-            if (twoExtended && restClosed && isVert)  return 82;
-            if (twoExtended && restClosed)            return 75;
-            if (twoExtended)                          return 55;
-            return 20;
+            const two = c.indexExtended&&c.middleExtended;
+            const rCl = !c.ringExtended&&!c.pinkyExtended;
+            const iH  = Math.abs(c.iT.x-c.iM.x)>Math.abs(c.iT.y-c.iM.y)*0.65;
+            const mH  = Math.abs(c.mT.x-c.mM.x)>Math.abs(c.mT.y-c.mM.y)*0.65;
+            if (two&&rCl&&(iH&&mH))         return 92;
+            if (two&&rCl&&c.fingersPointingUp) return 82;
+            if (two&&rCl)                    return 70;
+            if (two&&(iH||mH))               return 58;
+            return 12;
         }
 
-        // ── I ────────────────────────────────────────────────────────
-        // IMAGE ANALYSIS: Only PINKY extended upward. All other fingers closed.
+        // ── I ── ONLY pinky up, rest tightly curled
         case 'I': {
-            const onlyPinky = cfg.pinkyExtended && !cfg.indexExtended &&
-                              !cfg.middleExtended && !cfg.ringExtended;
-            const restCurled = cfg.indexCurled && cfg.middleCurled && cfg.ringCurled;
-            if (onlyPinky && restCurled) return 95;
-            if (onlyPinky) return 82;
-            if (cfg.pinkyExtended && cfg.extendedCount === 1) return 78;
-            if (cfg.pinkyExtended) return 50;
-            return 15;
+            const only = c.pinkyExtended&&!c.indexExtended&&!c.middleExtended&&!c.ringExtended;
+            const curl = c.indexCurled&&c.middleCurled&&c.ringCurled;
+            if (only&&curl) return 95;
+            if (only)       return 80;
+            if (c.pinkyExtended&&c.extendedCount===1) return 70;
+            if (c.pinkyExtended) return 42;
+            return 10;
         }
 
-        // ── J ────────────────────────────────────────────────────────
-        // Same static shape as I (pinky up), with a drawing motion.
-        // We match the static shape since we can't track motion.
+        // ── J ── Same static shape as I + motion; detect static part
         case 'J': {
-            const onlyPinky = cfg.pinkyExtended && !cfg.indexExtended &&
-                              !cfg.middleExtended && !cfg.ringExtended;
-            if (onlyPinky) return 85;
-            if (cfg.pinkyExtended && cfg.extendedCount <= 2) return 58;
-            return 20;
+            const only = c.pinkyExtended&&!c.indexExtended&&!c.middleExtended&&!c.ringExtended;
+            if (only) return 85;
+            if (c.pinkyExtended&&c.extendedCount<=2) return 52;
+            return 12;
         }
 
-        // ── L ────────────────────────────────────────────────────────
-        // IMAGE ANALYSIS: Index pointing UP + thumb pointing to the SIDE.
-        // Other 3 fingers (middle, ring, pinky) clearly CLOSED.
-        // Key signals: idxTip.y << idxMcp.y  AND  thumbTip.x far from thumbMcp.x
+        // ── L ── Index UP + thumb clearly LATERAL (L-shape); rest curled
         case 'L': {
-            // Index clearly above MCP
-            const idxUp = (cfg.idxMcp.y - cfg.idxTip.y) > 0.06;
-            // Thumb clearly lateral (X displacement from MCP)
-            const thumbSide = Math.abs(cfg.thumbTip.x - cfg.thumbMcp.x) > 0.05;
-            // Rest of fingers down
-            const restDown   = !cfg.middleExtended && !cfg.ringExtended && !cfg.pinkyExtended;
-            const restCurled = cfg.middleCurled && cfg.ringCurled && cfg.pinkyCurled;
-
-            if (idxUp && thumbSide && restCurled) return 96;
-            if (idxUp && thumbSide && restDown)   return 88;
-            if (idxUp && cfg.thumbExtended && restDown) return 80;
-            if (idxUp && thumbSide)               return 70;
-            if (idxUp && cfg.thumbExtended)       return 60;
-            if (cfg.extendedCount >= 2) return 18;
-            return 15;
+            const iHigh = (c.iM.y-c.iT.y)>0.07;
+            const tSide = Math.abs(c.tT.x-c.tM.x)>0.06;
+            const rCurl = c.middleCurled&&c.ringCurled&&c.pinkyCurled;
+            const rDown = !c.middleExtended&&!c.ringExtended&&!c.pinkyExtended;
+            if (iHigh&&tSide&&rCurl) return 96;
+            if (iHigh&&tSide&&rDown) return 88;
+            if (iHigh&&c.thumbExtended&&rCurl) return 82;
+            if (iHigh&&tSide)        return 70;
+            if (iHigh&&c.thumbExtended) return 58;
+            if (c.extendedCount>=2)  return 12;
+            return 10;
         }
 
-        // ── M ────────────────────────────────────────────────────────
-        // IMAGE ANALYSIS: Fist — index, middle AND ring fingers folded
-        // over the thumb. No fingers extended. Fist slightly open at top.
-        // Visually similar to S/E/N but thumb is tucked under 3 fingers.
+        // ── M ── Fist: index+middle+ring over thumb; tips close together
         case 'M': {
-            const allCurled = cfg.indexCurled && cfg.middleCurled &&
-                              cfg.ringCurled  && cfg.pinkyCurled;
-            const thumbIn   = !cfg.thumbExtended;
-            // In M the tips of index+middle+ring are close together (covering thumb)
-            const tipSpread = Math.max(
-                Math.abs(cfg.idxTip.x - cfg.midTip.x),
-                Math.abs(cfg.midTip.x - cfg.rngTip.x),
-                Math.abs(cfg.idxTip.x - cfg.rngTip.x)
-            );
-            const tipsClose = tipSpread < 0.08;
-
-            if (allCurled && thumbIn && tipsClose) return 88;
-            if (allCurled && thumbIn) return 75;
-            if (cfg.extendedCount === 0 && !cfg.thumbExtended) return 68;
-            if (cfg.extendedCount === 0) return 55;
-            return 25;
-        }
-
-        // ── N ────────────────────────────────────────────────────────
-        // IMAGE ANALYSIS: Fist — only index + middle folded over thumb.
-        // Ring and pinky also closed. Very similar to M but only 2 fingers cover thumb.
-        // Distinguishing from M: in N, index+middle tips are close but ring is lower/further.
-        case 'N': {
-            const allCurled = cfg.indexCurled && cfg.middleCurled &&
-                              cfg.ringCurled  && cfg.pinkyCurled;
-            const thumbIn   = !cfg.thumbExtended;
-
-            // In N, only index+middle cover thumb → their tips are close to each other
-            const idxMidDist = Math.hypot(
-                cfg.idxTip.x - cfg.midTip.x,
-                cfg.idxTip.y - cfg.midTip.y
-            );
-            const idxMidClose = idxMidDist < 0.06;
-
-            // Ring tip should be slightly lower/further than index+middle
-            const ringLower = cfg.rngTip.y > cfg.midTip.y - 0.01;
-
-            if (allCurled && thumbIn && idxMidClose && ringLower) return 88;
-            if (allCurled && thumbIn && idxMidClose) return 78;
-            if (allCurled && thumbIn) return 65;
-            if (cfg.extendedCount === 0 && !cfg.thumbExtended) return 58;
-            return 25;
-        }
-
-        // ── O ────────────────────────────────────────────────────────
-        // IMAGE ANALYSIS: All fingers curved to form a large O shape.
-        // Thumb and index tips are close (small circle). No finger fully extended.
-        case 'O': {
-            const bigCircle = cfg.thumbIndexDist < 0.12 && cfg.extendedCount === 0;
-            const noFingerUp = !cfg.indexExtended && !cfg.middleExtended &&
-                               !cfg.ringExtended  && !cfg.pinkyExtended;
-            if (bigCircle && noFingerUp && !cfg.thumbExtended) return 92;
-            if (bigCircle && noFingerUp) return 78;
-            if (cfg.isPinch && cfg.extendedCount === 0) return 72;
-            if (bigCircle) return 62;
-            return 20;
-        }
-
-        // ── Q ────────────────────────────────────────────────────────
-        // IMAGE ANALYSIS: Hand pointing DOWN with thumb+index pinching downward.
-        // Wrist is above the fingers. Index and thumb tips pointing toward floor.
-        case 'Q': {
-            // Wrist above the fingertips (hand pointing down)
-            const wristAbove = cfg.wrist.y < cfg.idxTip.y;
-            // Index tip below wrist (pointing down)
-            const idxHanging = cfg.idxTip.y > cfg.idxMcp.y;
-            // Thumb also angled down or sideways
-            const thumbDown  = cfg.thumbTip.y > cfg.thumbMcp.y - 0.02;
-            // Small distance between thumb and index (pinch/near-pinch)
-            const nearPinch  = cfg.thumbIndexDist < 0.10;
-
-            if (wristAbove && idxHanging && nearPinch && thumbDown) return 90;
-            if (wristAbove && idxHanging && nearPinch) return 80;
-            if (cfg.isPinch && cfg.fingersPointingDown) return 82;
-            if (cfg.isPinch && wristAbove) return 70;
-            if (cfg.isPinch) return 58;
-            return 20;
-        }
-
-        // ── R ────────────────────────────────────────────────────────
-        // IMAGE ANALYSIS: Index + middle extended UP and CROSSED over each other.
-        // Their tips are very close in X (overlapping). Ring + pinky closed.
-        case 'R': {
-            const twoUp     = cfg.indexExtended && cfg.middleExtended;
-            const restClosed = !cfg.ringExtended && !cfg.pinkyExtended;
-            // Crossed = tips very close in X (nearly on top of each other)
-            const crossed   = cfg.idxMidSep < 0.030;
-
-            if (twoUp && restClosed && crossed) return 90;
-            if (twoUp && restClosed && cfg.idxMidSep < 0.05) return 72;
-            if (twoUp && restClosed) return 55;
-            return 20;
-        }
-
-        // ── S ────────────────────────────────────────────────────────
-        // IMAGE ANALYSIS: Tight closed fist. Thumb folded OVER the fingers
-        // (thumb tip rests on top of curled index/middle). No finger extended.
-        case 'S': {
-            const allCurled = cfg.indexCurled && cfg.middleCurled &&
-                              cfg.ringCurled  && cfg.pinkyCurled;
-            const thumbOver = !cfg.thumbExtended && !cfg.thumbLateral;
-            if (allCurled && thumbOver) return 92;
-            if (allCurled && !cfg.thumbExtended) return 82;
-            if (cfg.extendedCount === 0 && !cfg.thumbExtended) return 75;
-            if (cfg.extendedCount === 0) return 55;
-            return 20;
-        }
-
-        // ── T ────────────────────────────────────────────────────────
-        // IMAGE ANALYSIS: Closed fist with THUMB tip inserted/pushed
-        // between the index and middle fingers. All 4 fingers are curled.
-        // Thumb tip appears between index MCP and middle MCP in X.
-        // Thumb NOT extended to the side (it goes UP/between fingers).
-        case 'T': {
-            const allCurled = cfg.indexCurled && cfg.middleCurled &&
-                              cfg.ringCurled  && cfg.pinkyCurled;
-            const allDown   = !cfg.indexExtended && !cfg.middleExtended &&
-                              !cfg.ringExtended  && !cfg.pinkyExtended;
-
-            // Thumb tip is between index MCP and middle MCP in X axis
-            const minX = Math.min(cfg.idxMcp.x, cfg.midMcp.x) - 0.03;
-            const maxX = Math.max(cfg.idxMcp.x, cfg.midMcp.x) + 0.03;
-            const thumbBetween = cfg.thumbTip.x > minX && cfg.thumbTip.x < maxX;
-
-            // Thumb tip is above (or at) the index MCP (pointing slightly up, not out)
-            const thumbUpward  = cfg.thumbTip.y < cfg.idxMcp.y + 0.04;
-
-            // Thumb NOT extended laterally (it goes inward, not sideways)
-            const thumbNotOut  = !cfg.thumbLateral;
-
-            if (allCurled && thumbBetween && thumbUpward && thumbNotOut) return 93;
-            if (allCurled && thumbBetween && thumbUpward) return 82;
-            if (allDown   && thumbBetween) return 72;
-            if (allCurled && !cfg.thumbExtended && !cfg.thumbLateral) return 62;
-            // Penalize if thumb goes sideways (that's A)
-            if (cfg.thumbLateral || cfg.thumbExtended) return 20;
-            return 25;
-        }
-
-        // ── U ────────────────────────────────────────────────────────
-        // IMAGE ANALYSIS: Index + middle extended UP and TOGETHER (small X gap).
-        // Ring + pinky curled. Hand pointing upward.
-        case 'U': {
-            const twoUp      = cfg.indexExtended && cfg.middleExtended;
-            const restClosed = !cfg.ringExtended && !cfg.pinkyExtended;
-            const together   = cfg.idxMidSep < 0.035; // close together
-
-            if (twoUp && restClosed && together && cfg.fingersPointingUp) return 93;
-            if (twoUp && restClosed && together) return 82;
-            if (twoUp && restClosed && cfg.idxMidSep < 0.05) return 68;
-            if (twoUp && restClosed) return 55;
-            return 20;
-        }
-
-        // ── V ────────────────────────────────────────────────────────
-        // IMAGE ANALYSIS: Index + middle extended UP and SEPARATED (large X gap).
-        // Ring + pinky curled. Clear V shape.
-        case 'V': {
-            const twoUp      = cfg.indexExtended && cfg.middleExtended;
-            const restClosed = !cfg.ringExtended && !cfg.pinkyExtended;
-            const separated  = cfg.idxMidSep > 0.040; // clearly apart
-
-            if (twoUp && restClosed && separated) return 94;
-            if (twoUp && restClosed && cfg.idxMidSep > 0.025) return 75;
-            if (twoUp && restClosed) return 55;
-            return 20;
-        }
-
-        // ── W ────────────────────────────────────────────────────────
-        // IMAGE ANALYSIS: Index + middle + ring all extended UP.
-        // Pinky closed. Three fingers spread in a fan/W shape.
-        case 'W': {
-            const threeUp    = cfg.indexExtended && cfg.middleExtended && cfg.ringExtended;
-            const pinkyDown  = !cfg.pinkyExtended;
-            const pinkyCurled = cfg.pinkyCurled;
-
-            if (threeUp && pinkyDown && pinkyCurled) return 93;
-            if (threeUp && pinkyDown) return 80;
-            if (cfg.extendedCount >= 3 && pinkyDown) return 68;
-            return 25;
-        }
-
-        // ── X ────────────────────────────────────────────────────────
-        // IMAGE ANALYSIS: Index finger HOOKED (bent at first knuckle, not fully curled,
-        // not fully extended). Other fingers closed. It's a "crooked" index.
-        // Key: indexExtended = false (tip not above MCP), indexCurled = false (not fully down),
-        // tip Y is between MCP.y and PIP.y → partially bent.
-        case 'X': {
-            // Hooked = index NOT extended (not above MCP), NOT fully curled (tip above PIP level)
-            const hookedIndex = !cfg.indexExtended &&
-                                cfg.idxTip.y < cfg.idxPip.y + 0.02 &&
-                                cfg.idxTip.y > cfg.idxMcp.y - 0.06;
-            const restClosed  = !cfg.middleExtended && !cfg.ringExtended && !cfg.pinkyExtended;
-            const restCurled  = cfg.middleCurled && cfg.ringCurled && cfg.pinkyCurled;
-
-            if (hookedIndex && restCurled) return 88;
-            if (hookedIndex && restClosed) return 78;
-            if (!cfg.indexExtended && restClosed && !cfg.indexCurled) return 65;
-            if (!cfg.indexExtended && restClosed) return 52;
-            return 20;
-        }
-
-        // ── Y ────────────────────────────────────────────────────────
-        // IMAGE ANALYSIS: THUMB extended to the side + PINKY extended upward.
-        // Index, middle, ring are CLOSED (curled). Clear "hang loose" shape.
-        case 'Y': {
-            // Pinky clearly above its MCP
-            const pinkyUp   = (cfg.pnkMcp.y - cfg.pnkTip.y) > 0.05;
-            // Thumb clearly lateral (X displacement from its MCP)
-            const thumbOut  = Math.abs(cfg.thumbTip.x - cfg.thumbMcp.x) > 0.05 ||
-                              cfg.thumbExtended;
-            // Middle three fingers closed
-            const midThreeCurled = cfg.indexCurled && cfg.middleCurled && cfg.ringCurled;
-            const midThreeDown   = !cfg.indexExtended && !cfg.middleExtended && !cfg.ringExtended;
-
-            // Thumb and pinky should be far apart
-            const spreadDist = Math.hypot(
-                cfg.thumbTip.x - cfg.pnkTip.x,
-                cfg.thumbTip.y - cfg.pnkTip.y
-            );
-
-            if (pinkyUp && thumbOut && midThreeCurled && spreadDist > 0.15) return 96;
-            if (pinkyUp && thumbOut && midThreeCurled) return 86;
-            if (pinkyUp && thumbOut && midThreeDown)   return 78;
-            if (pinkyUp && thumbOut)                   return 65;
-            if (cfg.pinkyExtended && cfg.thumbExtended && !cfg.indexExtended &&
-                !cfg.middleExtended && !cfg.ringExtended) return 72;
+            const all  = c.indexCurled&&c.middleCurled&&c.ringCurled&&c.pinkyCurled;
+            const tIn  = !c.thumbExtended&&!c.thumbLateral;
+            const sp   = Math.max(Math.abs(c.iT.x-c.mT.x),Math.abs(c.mT.x-c.rT.x),Math.abs(c.iT.x-c.rT.x));
+            const close= sp<0.07;
+            if (all&&tIn&&close) return 88;
+            if (all&&tIn)        return 74;
+            if (c.extendedCount===0&&!c.thumbExtended&&close) return 66;
+            if (c.extendedCount===0&&!c.thumbExtended) return 55;
             return 15;
         }
 
-        // ── Z ────────────────────────────────────────────────────────
-        // IMAGE ANALYSIS: Only index extended (pointing up), rest closed.
-        // Draws a Z in the air — static shape is same as D.
-        // We accept index-only and reward it.
-        case 'Z': {
-            const onlyIndex  = cfg.indexExtended && !cfg.middleExtended &&
-                               !cfg.ringExtended  && !cfg.pinkyExtended;
-            const restCurled = cfg.middleCurled && cfg.ringCurled && cfg.pinkyCurled;
-            if (onlyIndex && restCurled) return 82;
-            if (onlyIndex) return 70;
-            if (cfg.indexExtended && cfg.extendedCount <= 2) return 50;
-            return 20;
+        // ── N ── Fist: index+middle over thumb; those two tips very close
+        case 'N': {
+            const all  = c.indexCurled&&c.middleCurled&&c.ringCurled&&c.pinkyCurled;
+            const tIn  = !c.thumbExtended&&!c.thumbLateral;
+            const imD  = Math.hypot(c.iT.x-c.mT.x,c.iT.y-c.mT.y);
+            const imCl = imD<0.055;
+            const rLow = c.rT.y > c.mT.y-0.01;
+            if (all&&tIn&&imCl&&rLow) return 88;
+            if (all&&tIn&&imCl)       return 78;
+            if (all&&tIn)             return 62;
+            if (c.extendedCount===0&&!c.thumbExtended&&imCl) return 55;
+            return 18;
         }
 
-        default:
-            return 40;
+        // ── O ── All fingers curved into circle; no finger fully extended
+        case 'O': {
+            const none = !c.indexExtended&&!c.middleExtended&&!c.ringExtended&&!c.pinkyExtended;
+            const big  = c.thumbIndexDist<0.12&&none;
+            if (big&&!c.thumbExtended) return 92;
+            if (big)                    return 76;
+            if (c.isPinch&&none)        return 70;
+            if (big||(c.isPinch&&c.extendedCount===0)) return 58;
+            return 12;
+        }
+
+        // ── Q ── Hand pointing DOWN, thumb+index pinching downward
+        case 'Q': {
+            const wA  = c.W.y<c.iT.y;
+            const iHg = c.iT.y>c.iM.y;
+            const tDn = c.tT.y>c.tM.y-0.02;
+            const nP  = c.thumbIndexDist<0.10;
+            if (wA&&iHg&&nP&&tDn) return 90;
+            if (wA&&iHg&&nP)      return 80;
+            if (c.isPinch&&c.fingersPointingDown) return 80;
+            if (c.isPinch&&wA)    return 68;
+            if (c.isPinch)        return 50;
+            return 12;
+        }
+
+        // ── R ── Index+middle UP and CROSSED (tips very close in X)
+        case 'R': {
+            const two = c.indexExtended&&c.middleExtended;
+            const rCl = !c.ringExtended&&!c.pinkyExtended;
+            if (two&&rCl&&c.idxMidSep<0.028) return 90;
+            if (two&&rCl&&c.idxMidSep<0.048) return 72;
+            if (two&&rCl)                     return 50;
+            return 12;
+        }
+
+        // ── S ── Tight fist; thumb rests OVER fingers (not lateral, not extended)
+        case 'S': {
+            const all  = c.indexCurled&&c.middleCurled&&c.ringCurled&&c.pinkyCurled;
+            const tOv  = !c.thumbExtended&&!c.thumbLateral;
+            if (all&&tOv)                return 92;
+            if (all&&!c.thumbExtended)   return 80;
+            if (c.extendedCount===0&&tOv) return 74;
+            if (c.extendedCount===0&&!c.thumbExtended) return 58;
+            return 12;
+        }
+
+        // ── T ────────────────────────────────────────────────────
+        // Closed fist. THUMB TIP is pushed UP between index and middle fingers.
+        //
+        // From the landmark image:
+        //   • All 4 fingers are TIGHTLY CURLED (tips at or below PIP level).
+        //   • The thumb tip (lm[4]) rises UP between index and middle:
+        //       – tT.y  <  iM.y   (thumb tip above the index MCP knuckle)
+        //       – tT.y  <  iPip.y + small margin (rises above index PIP)
+        //   • Thumb tip X is between iM.x and mM.x  (±tolerance for mirror).
+        //   • Thumb is NOT pointing sideways (thumbLateral = false).
+        //
+        // This distinguishes T from:
+        //   A  → thumbLateral=true  (thumb sticks to the side)
+        //   S  → thumb wraps over, tT.y stays near or below iM.y
+        //   M/N → thumb tucked under, tT.y stays near wrist/palm
+        case 'T': {
+            const allCurl = c.indexCurled&&c.middleCurled&&c.ringCurled&&c.pinkyCurled;
+            const allDown = !c.indexExtended&&!c.middleExtended&&!c.ringExtended&&!c.pinkyExtended;
+            const notLat  = !c.thumbLateral;
+
+            // Thumb tip must be clearly ABOVE the index MCP knuckle in Y
+            const thumbAboveMcp = c.tT.y < c.iM.y + 0.02;
+
+            // Thumb tip also above (or at) the index PIP — pushed deep between fingers
+            const thumbAbovePip = c.tT.y < c.iP.y + 0.03;
+
+            // Thumb tip X sits between index MCP and middle MCP (with ±0.045 tolerance)
+            const lx = Math.min(c.iM.x, c.mM.x) - 0.045;
+            const rx = Math.max(c.iM.x, c.mM.x) + 0.045;
+            const thumbXbetween = c.tT.x > lx && c.tT.x < rx;
+
+            // All conditions together
+            if (allCurl && notLat && thumbAboveMcp && thumbXbetween && thumbAbovePip) return 93;
+            if (allCurl && notLat && thumbAboveMcp && thumbXbetween)                  return 83;
+            if (allCurl && notLat && thumbAboveMcp)                                   return 72;
+            if (allDown && notLat && thumbAboveMcp && thumbXbetween)                  return 68;
+            if (allCurl && notLat && !c.thumbExtended)                                return 52;
+            // Hard penalize: lateral thumb = A, not T
+            if (c.thumbLateral || c.thumbExtended) return 10;
+            return 18;
+        }
+
+        // ── U ── Index+middle UP and CLOSE TOGETHER
+        case 'U': {
+            const two = c.indexExtended&&c.middleExtended;
+            const rCl = !c.ringExtended&&!c.pinkyExtended;
+            const cl  = c.idxMidSep<0.032;
+            if (two&&rCl&&cl&&c.fingersPointingUp) return 93;
+            if (two&&rCl&&cl)                      return 82;
+            if (two&&rCl&&c.idxMidSep<0.048)       return 65;
+            if (two&&rCl)                           return 50;
+            return 12;
+        }
+
+        // ── V ── Index+middle UP and CLEARLY SEPARATED
+        case 'V': {
+            const two = c.indexExtended&&c.middleExtended;
+            const rCl = !c.ringExtended&&!c.pinkyExtended;
+            if (two&&rCl&&c.idxMidSep>0.042)   return 94;
+            if (two&&rCl&&c.idxMidSep>0.026)   return 75;
+            if (two&&rCl)                       return 50;
+            return 12;
+        }
+
+        // ── W ── Index+middle+ring UP; pinky curled
+        case 'W': {
+            const three = c.indexExtended&&c.middleExtended&&c.ringExtended;
+            const pCurl = !c.pinkyExtended&&c.pinkyCurled;
+            const pDown = !c.pinkyExtended;
+            if (three&&pCurl) return 93;
+            if (three&&pDown) return 80;
+            if (c.extendedCount>=3&&pDown) return 65;
+            return 18;
+        }
+
+        // ── X ── Index finger HOOKED (not fully up, not fully curled)
+        case 'X': {
+            const hook  = !c.indexExtended && c.iT.y<c.iP.y+0.02 && c.iT.y>c.iM.y-0.07;
+            const rCurl = c.middleCurled&&c.ringCurled&&c.pinkyCurled;
+            const rCl   = !c.middleExtended&&!c.ringExtended&&!c.pinkyExtended;
+            if (hook&&rCurl)                          return 88;
+            if (hook&&rCl)                            return 76;
+            if (!c.indexExtended&&rCl&&!c.indexCurled) return 62;
+            if (!c.indexExtended&&rCl)                return 48;
+            return 12;
+        }
+
+        // ── Y ── Thumb LATERAL + pinky UP; index/middle/ring curled
+        case 'Y': {
+            const pH   = (c.pM.y-c.pT.y)>0.06;   // pinky tip clearly above pMCP
+            const tOut = Math.abs(c.tT.x-c.tM.x)>0.055 || c.thumbExtended;
+            const mCurl= c.indexCurled&&c.middleCurled&&c.ringCurled;
+            const mDwn = !c.indexExtended&&!c.middleExtended&&!c.ringExtended;
+            const sprd = Math.hypot(c.tT.x-c.pT.x,c.tT.y-c.pT.y);
+            if (pH&&tOut&&mCurl&&sprd>0.16) return 96;
+            if (pH&&tOut&&mCurl)            return 86;
+            if (pH&&tOut&&mDwn)             return 76;
+            if (pH&&tOut)                   return 62;
+            if (c.pinkyExtended&&c.thumbExtended&&!c.indexExtended&&!c.middleExtended&&!c.ringExtended) return 68;
+            return 10;
+        }
+
+        // ── Z ── Index up only; draws Z in the air (static = same as D)
+        case 'Z': {
+            const only = c.indexExtended&&!c.middleExtended&&!c.ringExtended&&!c.pinkyExtended;
+            const curl = c.middleCurled&&c.ringCurled&&c.pinkyCurled;
+            if (only&&curl) return 82;
+            if (only)       return 68;
+            if (c.indexExtended&&c.extendedCount<=2) return 48;
+            return 12;
+        }
+
+        default: return 40;
         }
     }
 
@@ -904,97 +698,73 @@
     // MEDIAPIPE CALLBACK
     // ============================================================
     function onMediaPipeResults(results) {
-        const video    = document.getElementById('practiceVideo');
-        const canvas   = document.getElementById('practiceCanvas');
-        const ctx      = canvas.getContext('2d');
-        const debugDiv = document.getElementById('orientationDebug');
+        const video = document.getElementById('practiceVideo');
+        const canvas= document.getElementById('practiceCanvas');
+        const ctx   = canvas.getContext('2d');
+        const dbg   = document.getElementById('orientationDebug');
 
-        if (video.videoWidth && video.videoHeight) {
-            canvas.width  = video.videoWidth;
-            canvas.height = video.videoHeight;
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.drawImage(results.image, 0, 0, canvas.width, canvas.height);
+        if (!video.videoWidth||!video.videoHeight) return;
+        canvas.width=video.videoWidth; canvas.height=video.videoHeight;
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        ctx.drawImage(results.image,0,0,canvas.width,canvas.height);
 
-            if (results.multiHandLandmarks && results.multiHandLandmarks.length > 0 && practiceLetter) {
-                const landmarks = results.multiHandLandmarks[0];
-
-                if (typeof drawConnectors === 'function' && typeof HAND_CONNECTIONS !== 'undefined') {
-                    drawConnectors(ctx, landmarks, HAND_CONNECTIONS, { color: '#3b4cca', lineWidth: 3 });
-                    drawLandmarks(ctx, landmarks, { color: '#f59e0b', lineWidth: 2, radius: 4 });
-                }
-
-                const orientation = detectHandOrientation(landmarks);
-                const config      = getFingerConfiguration(landmarks);
-                debugDiv.textContent = `Orientation: ${orientation} | Fingers: ${config.extendedCount} | K/P Mode: ${practiceLetter === 'K' || practiceLetter === 'P' ? 'ON' : 'OFF'}`;
-
-                const accuracy = analyzeHandShapeForLetter(landmarks, practiceLetter);
-
-                if (accuracy >= 50) {
-                    updatePracticeFeedback('correct', `Excellent! Correct sign for ${practiceLetter} (${accuracy}% accuracy)`, accuracy);
-                    let points = localStorage.getItem('iaPoints') || 0;
-                    localStorage.setItem('iaPoints', parseInt(points) + 10);
-                } else {
-                    let message = `The sign does not match ${practiceLetter}. Accuracy: ${accuracy}% (minimum 50%). `;
-                    if ((practiceLetter === 'K' || practiceLetter === 'P') && accuracy < 40) {
-                        message += `Remember: Letter ${practiceLetter} requires fingers pointing ${practiceLetter === 'K' ? 'UP ☝️' : 'DOWN 👇'}.`;
-                    }
-                    updatePracticeFeedback('incorrect', message, accuracy);
-                }
-
-            } else if (!practiceLetter) {
-                updatePracticeFeedback('waiting', 'Select a letter first', 0);
-                debugDiv.textContent = 'Select a letter';
-            } else {
-                updatePracticeFeedback('waiting', '🖐️ Hand not detected. Place your hand in front of the camera', 0);
-                debugDiv.textContent = 'No hand detected';
+        if (results.multiHandLandmarks?.length>0 && practiceLetter) {
+            const lm = results.multiHandLandmarks[0];
+            if (typeof drawConnectors==='function' && typeof HAND_CONNECTIONS!=='undefined') {
+                drawConnectors(ctx,lm,HAND_CONNECTIONS,{color:'#3b4cca',lineWidth:3});
+                drawLandmarks(ctx,lm,{color:'#f59e0b',lineWidth:2,radius:4});
             }
+            const ori = detectHandOrientation(lm);
+            const cfg = getFingerConfiguration(lm);
+            dbg.textContent=`Ori:${ori} | Fingers:${cfg.extendedCount} | Letter:${practiceLetter} | ThumbLat:${cfg.thumbLateral}`;
+
+            const acc = analyzeHandShapeForLetter(lm, practiceLetter);
+            if (acc>=50) {
+                updatePracticeFeedback('correct',`Excellent! Correct sign for ${practiceLetter} (${acc}% accuracy)`,acc);
+                localStorage.setItem('iaPoints', parseInt(localStorage.getItem('iaPoints')||0)+10);
+            } else {
+                let msg=`The sign does not match ${practiceLetter}. Accuracy: ${acc}% (minimum 50%). `;
+                if ((practiceLetter==='K'||practiceLetter==='P')&&acc<40)
+                    msg+=`Fingers must point ${practiceLetter==='K'?'UP ☝️':'DOWN 👇'}.`;
+                if (practiceLetter==='T'&&acc<40)
+                    msg+=`Push your thumb UP between index and middle finger.`;
+                updatePracticeFeedback('incorrect',msg,acc);
+            }
+        } else if (!practiceLetter) {
+            updatePracticeFeedback('waiting','Select a letter first',0);
+            dbg.textContent='Select a letter';
+        } else {
+            updatePracticeFeedback('waiting','🖐️ Hand not detected. Place your hand in front of the camera',0);
+            dbg.textContent='No hand detected';
         }
     }
 
     // ============================================================
-    // START / STOP CAMERA
+    // CAMERA
     // ============================================================
     function startPracticeCamera() {
         if (isCameraRunning) return;
         const video = document.getElementById('practiceVideo');
-        document.getElementById('cameraOverlay').style.display = 'none';
-
-        handsInstance = new Hands({
-            locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`
-        });
-        handsInstance.setOptions({
-            maxNumHands: 1,
-            modelComplexity: 1,
-            minDetectionConfidence: 0.5,
-            minTrackingConfidence: 0.5
-        });
+        document.getElementById('cameraOverlay').style.display='none';
+        handsInstance = new Hands({locateFile:f=>`https://cdn.jsdelivr.net/npm/@mediapipe/hands/${f}`});
+        handsInstance.setOptions({maxNumHands:1,modelComplexity:1,minDetectionConfidence:0.5,minTrackingConfidence:0.5});
         handsInstance.onResults(onMediaPipeResults);
-
-        cameraInstance = new Camera(video, {
-            onFrame: async () => {
-                if (handsInstance && video && video.videoWidth > 0) {
-                    await handsInstance.send({ image: video });
-                }
-            },
-            width: 640,
-            height: 480
+        cameraInstance = new Camera(video,{
+            onFrame:async()=>{ if(handsInstance&&video?.videoWidth>0) await handsInstance.send({image:video}); },
+            width:640,height:480
         });
-
-        cameraInstance.start().then(() => {
-            isCameraRunning = true;
-        }).catch(err => {
-            console.error("Error starting camera:", err);
-            updatePracticeFeedback('incorrect', "Error accessing camera. Check permissions.", 0);
-        });
+        cameraInstance.start()
+            .then(()=>{ isCameraRunning=true; })
+            .catch(err=>{ console.error(err); updatePracticeFeedback('incorrect','Error accessing camera. Check permissions.',0); });
     }
 
     function stopCameraIfNeeded() {
-        if (cameraInstance) { cameraInstance.stop(); isCameraRunning = false; }
-        if (handsInstance)  { handsInstance.close(); }
+        if (cameraInstance){cameraInstance.stop();isCameraRunning=false;}
+        if (handsInstance) handsInstance.close();
     }
 
-    window.addEventListener('beforeunload', () => stopCameraIfNeeded());
-    document.addEventListener('DOMContentLoaded', () => renderPracticeSelect());
+    window.addEventListener('beforeunload',stopCameraIfNeeded);
+    document.addEventListener('DOMContentLoaded',renderPracticeSelect);
     </script>
 </body>
 </html>
